@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+body {
+  font-family: "Inter", "sans-serif";
+}
+
+.common {
+  @apply px-[10px] 2xl:px-[350px] xl:px-[100px] lg:px-[80px] md:px-[50px];
+}
+
+.borderColor {
+  @apply border-[#4851D524];
+}
+
+.appointmentButton {
+  @apply bg-primary text-white  px-[20px] py-[10px] rounded-xl font-inter  shadow-bgColor scale-100 hover:scale-110 ease-in duration-100;
+}
+
+.label_text {
+  @apply text-[13px] leading-6 font-inter  font-semibold capitalize;
+}
+.label_text2 {
+  @apply text-[13px] leading-6 font-inter text-rose-500 font-semibold capitalize;
+}
+.label_text3 {
+  @apply text-[13px] leading-8 font-roboto text-gray-50  capitalize pb-1;
+}
+
+.input_text {
+  @apply border w-full rounded-lg  py-2 px-[10px] font-inter text-sm leading-6  text-gray-800 hover:border-primary focus:border-primary focus:outline-none;
+}
+
+.input_text2 {
+  @apply border w-full bg-red-50 rounded-lg py-2 px-[10px] font-inter text-sm leading-6  text-gray-800;
+}
+
+.input_text3 {
+  @apply border w-full bg-[#FFFDF4] rounded-lg py-2 px-[10px] font-inter text-sm leading-6  text-gray-800;
+}
+
+.dropdown:focus-within .dropdown-menu {
+  opacity: 1;
+  transform: translate(0) scale(1);
+  visibility: visible;
+}
