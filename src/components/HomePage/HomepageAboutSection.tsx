@@ -23,8 +23,8 @@ const HomepageAboutSection = () => {
           We Collaborate for Better Healthcare
         </p>
         <p className="md:w-[500px] text-gray-[400px] font-poppins text-gray-500">
-          The benefits of MEDDPICC are that it allows sellers to quickly qualify
-          or disqualify opportunities.
+          The benefits of MED-SPHERE are that it allows sellers to quickly
+          qualify or disqualify opportunities.
         </p>
 
         <div className="flex w-full gap-5 my-[10px]">
