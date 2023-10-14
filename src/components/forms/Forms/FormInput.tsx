@@ -33,7 +33,7 @@ const FormInput = ({
 
   return (
     <>
-      {label ? label : null}
+      <p className="py-2">{label ? label : null}</p>
       <Controller
         control={control}
         name={name}

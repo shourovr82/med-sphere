@@ -84,7 +84,7 @@ const DashboardSidebar: React.FC = () => {
           theme="light"
           defaultSelectedKeys={["1"]}
           mode="inline"
-          items={sidebarItems(`ADMIN`)}
+          items={sidebarItems(`SUPER_ADMIN`)}
         />
         <div className="flex justify-center w-full absolute z-20 bg-white  bottom-0  ">
           {" "}

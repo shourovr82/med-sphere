@@ -15,14 +15,7 @@ const AddUserPage = () => {
       label: "USER",
       value: "USER",
     },
-    {
-      label: "ADMIN",
-      value: "ADMIN",
-    },
-    {
-      label: "SUPER ADMIN",
-      value: "SUPER_ADMIN",
-    },
+
     {
       label: "DOCTOR",
       value: "DOCTOR",
@@ -55,8 +48,8 @@ const AddUserPage = () => {
     <>
       <UMBreadCrumb
         items={[
-          { label: `${base}`, link: `/dashboard/${base}` },
-          { label: "add-user", link: `/dashboard/${base}/add-user` },
+          { label: `${base}`, link: `/dashboard` },
+          { label: "add-user", link: `/dashboard/add-user` },
         ]}
       />
       <div className="mt-3">
@@ -122,11 +115,7 @@ const AddUserPage = () => {
             </p>
             <Row gutter={{ xs: 24, xl: 8, lg: 8, md: 24 }}>
               <Col span={12} style={{ margin: "10px 0" }}>
-                <FormInput
-                  name="faculty.name.lastName"
-                  label="Last name"
-                  size="large"
-                />
+                <FormInput name="firstName" label="First Name" size="large" />
               </Col>
               <Col span={12} style={{ margin: "10px 0" }}>
                 <FormInput name="lastName" label="Last Name." size="large" />

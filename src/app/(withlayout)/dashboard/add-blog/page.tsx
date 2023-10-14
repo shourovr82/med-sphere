@@ -56,8 +56,8 @@ const AddUserPage = () => {
     <>
       <UMBreadCrumb
         items={[
-          { label: `${base}`, link: `/dashboard/${base}` },
-          { label: "add-blog", link: `/dashboard/${base}/add-blog` },
+          { label: `${base}`, link: `/dashboard` },
+          { label: "add-blog", link: `/dashboard/add-blog` },
         ]}
       />
       <div className="mt-3">

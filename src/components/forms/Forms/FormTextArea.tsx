@@ -19,7 +19,7 @@ const FormTextArea = ({
   const { control } = useFormContext();
   return (
     <div className={`flex flex-col  w-full`}>
-      <p className="pb-2"> {label ? label : null}</p>
+      <p className="py-2"> {label ? label : null}</p>
       <Controller
         name={name}
         control={control}

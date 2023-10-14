@@ -66,12 +66,12 @@ export const sidebarItems = (role: string) => {
       icon: <UserSwitchOutlined />,
       children: [
         {
-          label: <Link href={`/dashboard/super-admin/add-user`}>Add user</Link>,
+          label: <Link href={`/dashboard/add-user`}>Add user</Link>,
           key: `/add-user`,
           icon: <UserAddOutlined />,
         },
         {
-          label: <Link href={`/user-list`}>User List</Link>,
+          label: <Link href={`/dashboard/user-lists`}>User List</Link>,
           key: `/user-list`,
           icon: <UsergroupAddOutlined />,
         },
@@ -117,22 +117,22 @@ export const sidebarItems = (role: string) => {
       icon: <SecurityScanOutlined />,
       children: [
         {
-          label: <Link href={`/dashboard/super-admin/add-blog`}>Add Blog</Link>,
+          label: <Link href={`/dashboard/add-blog`}>Add Blog</Link>,
           key: `/add-blog`,
           icon: <BoldOutlined />,
         },
         {
-          label: <Link href={`/blog-list`}>Blog List</Link>,
+          label: <Link href={`/dashboard/blog-lists`}>Blog List</Link>,
           key: `/blog-list`,
           icon: <OrderedListOutlined />,
         },
         {
-          label: <Link href={`/add-faq`}>Add FAQ</Link>,
+          label: <Link href={`/dashboard/add-faq`}>Add FAQ</Link>,
           key: `/add-faq`,
           icon: <BookOutlined />,
         },
         {
-          label: <Link href={`/faq-list`}>FAQ List</Link>,
+          label: <Link href={`/dashboard/faq-lists`}>FAQ List</Link>,
           key: `/faq-list`,
           icon: <AlignLeftOutlined />,
         },
@@ -148,12 +148,12 @@ export const sidebarItems = (role: string) => {
       icon: <AppstoreOutlined />,
       children: [
         {
-          label: <Link href={`/add-admin`}>add Admin</Link>,
+          label: <Link href={`/dashboard/add-admin`}>add Admin</Link>,
           icon: <PlusCircleOutlined />,
           key: `/add-admin`,
         },
         {
-          label: <Link href={`/admin-list`}>Admin List </Link>,
+          label: <Link href={`/dashboard/admin-lists`}>Admin List </Link>,
           icon: <TableOutlined />,
           key: `/admin-list`,
         },
