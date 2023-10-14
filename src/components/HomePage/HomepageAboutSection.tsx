@@ -10,7 +10,7 @@ const HomepageAboutSection = () => {
         <Image
           src={aboutImageTwo}
           alt="Picture of the author"
-          className="object-contain object-left rounded-xl  shadow-xl  "
+          className="w-full rounded-xl  shadow-xl  "
         />
       </div>
 

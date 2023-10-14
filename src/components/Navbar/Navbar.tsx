@@ -14,7 +14,7 @@ const Navbar = () => {
 
   const user = {
     name: "John Doe",
-    email: "masud",
+    email: "shafin",
   };
 
   const showDrawer = () => {

@@ -6,6 +6,12 @@ import HighlightSection from "@/components/HomePage/HighlightSection";
 import HomepageAboutSection from "@/components/HomePage/HomepageAboutSection";
 import Faqs from "@/components/HomePage/faqs/Faqs";
 import HomePageServiceSection from "@/components/HomePage/homePageService/HomePageServiceSection";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Med-Sphere - Home",
+  description: "Created By Shafinur Islam(@shourovr82)",
+};
 
 export default function Home() {
   return (
