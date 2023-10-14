@@ -66,7 +66,7 @@ export const sidebarItems = (role: string) => {
       icon: <UserSwitchOutlined />,
       children: [
         {
-          label: <Link href={`/dashboard/add-user`}>Add user</Link>,
+          label: <Link href={`/dashboard/super-admin/add-user`}>Add user</Link>,
           key: `/add-user`,
           icon: <UserAddOutlined />,
         },
@@ -117,7 +117,7 @@ export const sidebarItems = (role: string) => {
       icon: <SecurityScanOutlined />,
       children: [
         {
-          label: <Link href={`/add-blog`}>Add Blog</Link>,
+          label: <Link href={`/dashboard/super-admin/add-blog`}>Add Blog</Link>,
           key: `/add-blog`,
           icon: <BoldOutlined />,
         },

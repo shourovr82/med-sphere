@@ -50,13 +50,13 @@ const AddUserPage = () => {
     }
   };
 
-  const base = "admin";
+  const base = "super-admin";
   return (
     <>
       <UMBreadCrumb
         items={[
-          { label: `${base}`, link: `/${base}` },
-          { label: "manage-faculty", link: `/${base}/manage-faculty` },
+          { label: `${base}`, link: `/dashboard/${base}` },
+          { label: "add-user", link: `/dashboard/${base}/add-user` },
         ]}
       />
       <div className="mt-3">
