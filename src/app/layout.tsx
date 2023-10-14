@@ -1,11 +1,12 @@
 import Providers from "@/lib/Providers";
 import "./globals.css";
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import Navbar from "@/components/Navbar/Navbar";
-import Footer from "@/components/Footer/Footer";
 
-const inter = Inter({ subsets: ["latin"] });
+import { Poppins } from "next/font/google";
+
+const poppins = Poppins({
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  subsets: ["latin"],
+});
 
 export default function RootLayout({
   children,
@@ -15,10 +16,8 @@ export default function RootLayout({
   return (
     <Providers>
       <html lang="en">
-        <body className={`${inter.className}  mx-auto  bg-bgColor`}>
-          <Navbar />
+        <body className={`${poppins.className}  mx-auto  bg-bgColor`}>
           {children}
-          <Footer />
         </body>
       </html>
     </Providers>
