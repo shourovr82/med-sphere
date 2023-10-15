@@ -12,7 +12,7 @@ const AddFaq = () => {
   };
   const base = "super-admin";
   return (
-    <>
+    <div className="bg-white  p-5 rounded-2xl shadow-lg">
       <UMBreadCrumb
         items={[
           { label: `${base}`, link: `/dashboard` },
@@ -40,7 +40,7 @@ const AddFaq = () => {
           />
         </Form>
       </div>
-    </>
+    </div>
   );
 };
 

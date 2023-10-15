@@ -13,7 +13,6 @@ type UMTableProps = {
   onTableChange?: (pagination: any, filter: any, sorter: any) => void;
   showPagination?: boolean;
 };
-console.log("object");
 const TableList = ({
   loading = false,
   columns,
@@ -34,9 +33,6 @@ const TableList = ({
         onChange: onPaginationChange,
       }
     : false;
-
-  console.log("columns", columns);
-  console.log("dataSource", dataSource);
 
   return (
     <Table

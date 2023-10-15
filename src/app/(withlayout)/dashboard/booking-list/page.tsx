@@ -11,10 +11,10 @@ import Link from "next/link";
 import { useState } from "react";
 import dayjs from "dayjs";
 import UMBreadCrumb from "@/components/forms/ui/UMBreadCrumb";
-import TableList from "@/components/table/TableList";
 import ActionBar from "@/components/forms/ui/ActionBar";
+import TableList from "@/components/table/TableList";
 
-const AdminLists = () => {
+const BookingList = () => {
   const query: Record<string, any> = {};
 
   const [page, setPage] = useState<number>(1);
@@ -48,49 +48,35 @@ const AdminLists = () => {
 
   const dataSource = [
     {
-      email: "shafinur512@gmail.com",
-      firstName: "Shafinur",
-      lastName: "Islam",
-      role: "ADMIN",
-      contactNumber: "01714486218",
-      address: "Dhaka",
-      bloodGroup: "O+",
+      firstName: "Shafin Rahman",
+      lastName: "Shourov",
+      appointmentDate: "15 May 2023",
+      slot: "10.00-10.20 AM",
+      service: "Medicine",
+      servicePrice: 120,
+      createdAt: "2023-10-13T18:20:09.606Z",
     },
   ];
 
   const columns = [
     {
       title: "Full Name",
-
-      render: function (data: Record<string, string>) {
-        const fullName = `${data?.firstName} ${data?.lastName}`;
-        return <>{fullName}</>;
-      },
+      dataIndex: "firstName",
       //   sorter: true,
     },
     {
-      title: "Email",
-      dataIndex: "email",
+      title: "Appointment Date",
+      dataIndex: "appointmentDate",
       //   sorter: true,
     },
     {
-      title: "Address",
-      dataIndex: "address",
+      title: "Time Slot",
+      dataIndex: "slot",
       //   sorter: true,
     },
     {
-      title: "Contact No",
-      dataIndex: "contactNumber",
-      //   sorter: true,
-    },
-    {
-      title: "Blood Group",
-      dataIndex: "contactNumber",
-      //   sorter: true,
-    },
-    {
-      title: "Role",
-      dataIndex: "role",
+      title: "Service",
+      dataIndex: "service",
       //   sorter: true,
     },
     {
@@ -159,41 +145,39 @@ const AdminLists = () => {
             link: "/dashboard",
           },
           {
-            label: "Admin Lists",
-            link: "/dashboard/admin-lists",
+            label: "booking-list",
+            link: "/dashboard/booking-list",
           },
         ]}
       />
-
-      <div className="mt-5">
-        <ActionBar title="Admin Lists">
-          <Input
-            type="text"
-            size="large"
-            placeholder="Search by name, email, role..."
-            style={{
-              width: "30%",
-            }}
-            onChange={(e) => {
-              setSearchTerm(e.target.value);
-            }}
-          />
-          <div>
-            <Link href="/admin/course/create">
-              <Button type="primary">Create</Button>
-            </Link>
-            {(!!sortBy || !!sortOrder || !!searchTerm) && (
-              <Button
-                onClick={resetFilters}
-                type="primary"
-                style={{ margin: "0px 5px" }}
-              >
-                <ReloadOutlined />
-              </Button>
-            )}
-          </div>
-        </ActionBar>
-      </div>
+      <br />
+      <ActionBar title="Course List">
+        <Input
+          type="text"
+          size="large"
+          placeholder="Search..."
+          style={{
+            width: "20%",
+          }}
+          onChange={(e) => {
+            setSearchTerm(e.target.value);
+          }}
+        />
+        <div>
+          <Link href="/service/add-service">
+            <Button type="primary">Create</Button>
+          </Link>
+          {(!!sortBy || !!sortOrder || !!searchTerm) && (
+            <Button
+              onClick={resetFilters}
+              type="primary"
+              style={{ margin: "0px 5px" }}
+            >
+              <ReloadOutlined />
+            </Button>
+          )}
+        </div>
+      </ActionBar>
 
       <TableList
         // loading={isLoading}
@@ -210,4 +194,4 @@ const AdminLists = () => {
   );
 };
 
-export default AdminLists;
+export default BookingList;

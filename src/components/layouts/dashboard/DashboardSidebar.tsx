@@ -18,6 +18,8 @@ import Image from "next/image";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { sidebarItems } from "@/components/sidebarMenuItems/SidebarMenuItems";
 import { USER_ROLE } from "@/constants/user";
+import Link from "next/link";
+import { getUserInfo } from "@/services/auth.service";
 
 const { Sider } = Layout;
 
@@ -57,7 +59,7 @@ const DashboardSidebar: React.FC = () => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
-
+  const { role } = getUserInfo() as any;
   return (
     <div className="relative   ">
       <Sider
@@ -78,13 +80,15 @@ const DashboardSidebar: React.FC = () => {
         }}
       >
         <div className="m-5 flex flex-col justify-center items-center">
-          <Image src={logo} className="w-40" alt="" />
+          <Link href="/">
+            <Image src={logo} className="w-40" alt="" />
+          </Link>
         </div>
         <Menu
           theme="light"
           defaultSelectedKeys={["1"]}
           mode="inline"
-          items={sidebarItems(`DOCTOR`)}
+          items={sidebarItems(role)}
         />
         <div className="flex justify-center w-full absolute z-20 bg-white  bottom-0  ">
           {" "}

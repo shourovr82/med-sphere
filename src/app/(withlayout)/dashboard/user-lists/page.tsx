@@ -151,7 +151,7 @@ const UserLists = () => {
   //   console.log(dataSource);
 
   return (
-    <div className="my-10">
+    <div className="bg-white  p-5 rounded-2xl shadow-lg">
       <UMBreadCrumb
         items={[
           {

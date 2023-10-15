@@ -85,12 +85,12 @@ export const sidebarItems = (role: string) => {
       icon: <CustomerServiceOutlined />,
       children: [
         {
-          label: <Link href={`/add-service`}>Add Service</Link>,
+          label: <Link href={`/dashboard/add-service`}>Add Service</Link>,
           key: `/add-service`,
           icon: <FolderAddOutlined />,
         },
         {
-          label: <Link href={`/service-list`}>Service List</Link>,
+          label: <Link href={`/dashboard/service-lists`}>Service List</Link>,
           key: `/service-list`,
           icon: <CloudServerOutlined />,
         },
@@ -101,11 +101,6 @@ export const sidebarItems = (role: string) => {
       key: "booking-management",
       icon: <DiffOutlined />,
       children: [
-        {
-          label: <Link href={`/dashboard/add-booking`}>Add Booking</Link>,
-          key: `/add-service`,
-          icon: <FileAddOutlined />,
-        },
         {
           label: <Link href={`/dashboard/booking-list`}>Booking List</Link>,
           key: `/booking-list`,

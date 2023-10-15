@@ -146,21 +146,21 @@ const BlogLists = () => {
   //   console.log(dataSource);
 
   return (
-    <div className="my-5">
+    <div className="bg-white  p-5 rounded-2xl shadow-lg">
       <UMBreadCrumb
         items={[
           {
-            label: "dashboard",
+            label: "Dashboard",
             link: "/dashboard",
           },
           {
-            label: "blog-Lists",
+            label: "Blog Lists",
             link: "/dashboard/blog-lists",
           },
         ]}
       />
       <div className="mt-5">
-        <ActionBar title="Admin Lists">
+        <ActionBar title="Blog Lists">
           <Input
             type="text"
             size="large"

@@ -11,10 +11,10 @@ import Link from "next/link";
 import { useState } from "react";
 import dayjs from "dayjs";
 import UMBreadCrumb from "@/components/forms/ui/UMBreadCrumb";
-import TableList from "@/components/table/TableList";
 import ActionBar from "@/components/forms/ui/ActionBar";
+import TableList from "@/components/table/TableList";
 
-const AdminLists = () => {
+const ServiceList = () => {
   const query: Record<string, any> = {};
 
   const [page, setPage] = useState<number>(1);
@@ -48,49 +48,39 @@ const AdminLists = () => {
 
   const dataSource = [
     {
-      email: "shafinur512@gmail.com",
-      firstName: "Shafinur",
-      lastName: "Islam",
-      role: "ADMIN",
-      contactNumber: "01714486218",
-      address: "Dhaka",
-      bloodGroup: "O+",
+      serviceName: "dassadsadsdadd",
+      description: "data.description",
+      location: "data.location",
+      serviceImage: "asdasdasdasdasd",
+      servicePrice: 120,
+      createdAt: "2023-10-13T18:20:09.606Z",
     },
   ];
 
   const columns = [
     {
-      title: "Full Name",
-
-      render: function (data: Record<string, string>) {
-        const fullName = `${data?.firstName} ${data?.lastName}`;
-        return <>{fullName}</>;
-      },
+      title: "Service Name",
+      dataIndex: "serviceName",
       //   sorter: true,
     },
     {
-      title: "Email",
-      dataIndex: "email",
+      title: "Description",
+      dataIndex: "description",
       //   sorter: true,
     },
     {
-      title: "Address",
-      dataIndex: "address",
+      title: "location",
+      dataIndex: "location",
       //   sorter: true,
     },
     {
-      title: "Contact No",
-      dataIndex: "contactNumber",
+      title: "ServicePrice",
+      dataIndex: "servicePrice",
       //   sorter: true,
     },
     {
-      title: "Blood Group",
-      dataIndex: "contactNumber",
-      //   sorter: true,
-    },
-    {
-      title: "Role",
-      dataIndex: "role",
+      title: "Category",
+      dataIndex: "categoryId",
       //   sorter: true,
     },
     {
@@ -159,41 +149,40 @@ const AdminLists = () => {
             link: "/dashboard",
           },
           {
-            label: "Admin Lists",
-            link: "/dashboard/admin-lists",
+            label: "Service List",
+            link: "/service/service-list",
           },
         ]}
       />
 
-      <div className="mt-5">
-        <ActionBar title="Admin Lists">
-          <Input
-            type="text"
-            size="large"
-            placeholder="Search by name, email, role..."
-            style={{
-              width: "30%",
-            }}
-            onChange={(e) => {
-              setSearchTerm(e.target.value);
-            }}
-          />
-          <div>
-            <Link href="/admin/course/create">
-              <Button type="primary">Create</Button>
-            </Link>
-            {(!!sortBy || !!sortOrder || !!searchTerm) && (
-              <Button
-                onClick={resetFilters}
-                type="primary"
-                style={{ margin: "0px 5px" }}
-              >
-                <ReloadOutlined />
-              </Button>
-            )}
-          </div>
-        </ActionBar>
-      </div>
+      <br />
+      <ActionBar title="Course List">
+        <Input
+          type="text"
+          size="large"
+          placeholder="Search..."
+          style={{
+            width: "20%",
+          }}
+          onChange={(e) => {
+            setSearchTerm(e.target.value);
+          }}
+        />
+        <div>
+          <Link href="/service/add-service">
+            <Button type="primary">Create</Button>
+          </Link>
+          {(!!sortBy || !!sortOrder || !!searchTerm) && (
+            <Button
+              onClick={resetFilters}
+              type="primary"
+              style={{ margin: "0px 5px" }}
+            >
+              <ReloadOutlined />
+            </Button>
+          )}
+        </div>
+      </ActionBar>
 
       <TableList
         // loading={isLoading}
@@ -210,4 +199,4 @@ const AdminLists = () => {
   );
 };
 
-export default AdminLists;
+export default ServiceList;
