@@ -65,7 +65,7 @@ const DashboardSidebar: React.FC = () => {
         collapsed={collapsed}
         onCollapse={(value) => setCollapsed(value)}
         width={280}
-        className="shadow-2xl "
+        className="shadow-lg shadow-purple-200 "
         style={{
           background: "#fff",
           overflow: "auto",
@@ -74,7 +74,7 @@ const DashboardSidebar: React.FC = () => {
           left: 0,
           top: 0,
           bottom: 0,
-          borderRadius: "0px 50px 0px 0px ",
+          borderRadius: "40px 0px 0px 40px ",
         }}
       >
         <div className="m-5 flex flex-col justify-center items-center">
@@ -84,7 +84,7 @@ const DashboardSidebar: React.FC = () => {
           theme="light"
           defaultSelectedKeys={["1"]}
           mode="inline"
-          items={sidebarItems(`SUPER_ADMIN`)}
+          items={sidebarItems(`DOCTOR`)}
         />
         <div className="flex justify-center w-full absolute z-20 bg-white  bottom-0  ">
           {" "}

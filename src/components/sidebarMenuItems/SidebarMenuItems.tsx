@@ -31,12 +31,14 @@ export const sidebarItems = (role: string) => {
       icon: <UsergroupAddOutlined />,
       children: [
         {
-          label: <Link href={`/${role}`}>Account Profile</Link>,
+          label: <Link href={`/dashboard/profile`}>Account Profile</Link>,
           icon: <UserOutlined />,
           key: `/${role}/profile`,
         },
         {
-          label: <Link href={`/${role}/change-password`}>Change Password</Link>,
+          label: (
+            <Link href={`/dashboard/change-password`}>Change Password</Link>
+          ),
           icon: <UsergroupDeleteOutlined />,
           key: `/${role}/change-password`,
         },
@@ -47,12 +49,12 @@ export const sidebarItems = (role: string) => {
   const userSidebarItems: MenuProps["items"] = [
     ...defaultSidebarItems,
     {
-      label: <Link href={`/${role}/booking-list`}>My Booking List</Link>,
+      label: <Link href={`/dashboard/my-booking-lists`}>My Booking List</Link>,
       icon: <BookOutlined />,
       key: `/${role}/booking-list`,
     },
     {
-      label: <Link href={`/${role}/reviews`}>My Reviews</Link>,
+      label: <Link href={`/dashboard/my-reviews`}>My Reviews</Link>,
       icon: <PlusSquareOutlined />,
       key: `/${role}/reviews`,
     },
@@ -100,12 +102,12 @@ export const sidebarItems = (role: string) => {
       icon: <DiffOutlined />,
       children: [
         {
-          label: <Link href={`/add-booking`}>Add Booking</Link>,
+          label: <Link href={`/dashboard/add-booking`}>Add Booking</Link>,
           key: `/add-service`,
           icon: <FileAddOutlined />,
         },
         {
-          label: <Link href={`/booking-list`}>Booking List</Link>,
+          label: <Link href={`/dashboard/booking-list`}>Booking List</Link>,
           key: `/booking-list`,
           icon: <FileSearchOutlined />,
         },
@@ -164,7 +166,9 @@ export const sidebarItems = (role: string) => {
   const doctorSidebarItems: MenuProps["items"] = [
     ...defaultSidebarItems,
     {
-      label: <Link href={`/booking-list`}>Booking Lists</Link>,
+      label: (
+        <Link href={`/dashboard/doctor-booking-lists`}>Booking Lists</Link>
+      ),
       icon: <TableOutlined />,
       key: `/booking-list`,
     },
