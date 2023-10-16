@@ -7,50 +7,34 @@ import FormSelectField from "@/components/forms/Forms/FormSelectField";
 import UMBreadCrumb from "@/components/forms/ui/UMBreadCrumb";
 import UploadImage from "@/components/forms/ui/UploadImage";
 import { Button, Col, Row, message } from "antd";
-import SpecializationFormField from "@/components/forms/Forms/specializationField/SpecializationFormField";
 import FormTextArea from "@/components/forms/Forms/FormTextArea";
+import { useCreateBlogMutation } from "@/redux/features/blogs/blogApi";
+import { useRouter } from "next/navigation";
 
-const AddUserPage = () => {
-  const roles = [
-    {
-      label: "USER",
-      value: "USER",
-    },
-    {
-      label: "ADMIN",
-      value: "ADMIN",
-    },
-    {
-      label: "SUPER ADMIN",
-      value: "SUPER_ADMIN",
-    },
-    {
-      label: "DOCTOR",
-      value: "DOCTOR",
-    },
-  ];
-
-  const [isRoleIsDoctor, setIsRoleIsDoctor] = useState(false);
-
-  const adminOnSubmit = async (values: any) => {
-    const obj = { ...values };
-    const file = obj["file"];
-    delete obj["file"];
-    const data = JSON.stringify(obj);
-    const formData = new FormData();
-    formData.append("file", file as Blob);
-    formData.append("data", data);
-    message.loading("Creating...");
+const AddBlogPage = () => {
+  const [createBlog, { isLoading, isError }] = useCreateBlogMutation();
+  // submit
+  const router = useRouter();
+  const blogOnSubmit = async (data: any) => {
+    message.loading("Creating new Faq");
+    const bloData = {
+      blogTitle: data.blogTitle,
+      blogDescription: data.blogDescription,
+      blogImage: data.blogImage,
+    };
     try {
-      // const res = await addFacultyWithFormData(formData);
-      // if (!!res) {
-      //   message.success("Faculty created successfully!");
-      // }
+      const res = await createBlog(bloData);
+      console.log(res);
+      // @ts-ignore
+      if (res?.data && !isError) {
+        message.success("Blog created successfully");
+        router.push("/dashboard/blog-lists");
+      }
     } catch (err: any) {
-      // console.error(err.message);
+      console.error(err?.data?.message);
+      message.error("something went wrong");
     }
   };
-
   const base = "super-admin";
   return (
     <div className="bg-white  p-5 rounded-2xl shadow-lg">
@@ -64,7 +48,7 @@ const AddUserPage = () => {
         <div className="mb-3">
           <h1 className="text-lg text-black/70 font-bold">Create New Blog</h1>
         </div>
-        <Form submitHandler={adminOnSubmit}>
+        <Form submitHandler={blogOnSubmit}>
           {/* faculty information */}
           <div
             style={{
@@ -82,10 +66,10 @@ const AddUserPage = () => {
             <Row gutter={{ xs: 24, xl: 8, lg: 8, md: 24 }}>
               <Col span={3} style={{ margin: "10px 0" }}>
                 <p className="pb-2">Blog Image</p>
-                <UploadImage name="file" />
+                <UploadImage name="blogImage" />
               </Col>{" "}
               <Col span={21} style={{ margin: "10px 0" }}>
-                <FormTextArea name="blog" label="Blog Title" rows={4} />
+                <FormTextArea name="blogTitle" label="Blog Title" rows={4} />
               </Col>
               <Col span={24} style={{ margin: "10px 0" }}>
                 <FormTextArea
@@ -108,4 +92,4 @@ const AddUserPage = () => {
   );
 };
 
-export default AddUserPage;
+export default AddBlogPage;

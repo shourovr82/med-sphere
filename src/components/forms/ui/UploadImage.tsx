@@ -9,11 +9,24 @@ import { RcFile, UploadFile } from "antd/es/upload";
 
 type ImageUploadProps = {
   name: string;
+  defaultImage?: string;
 };
 
-const UploadImage = ({ name }: ImageUploadProps) => {
-  const [defaultFileList, setDefaultFileList] = useState<any[]>([]);
+const UploadImage = ({ name, defaultImage }: ImageUploadProps) => {
+  // const [defaultFileList, setDefaultFileList] = useState<any[]>([]);
   const [progress, setProgress] = useState<number>(0);
+  const [defaultFileList, setDefaultFileList] = useState<UploadFile[]>(
+    defaultImage
+      ? [
+          {
+            uid: "-1",
+            name: "image.png",
+            status: "done",
+            url: defaultImage,
+          },
+        ]
+      : []
+  );
 
   const { setValue } = useFormContext();
 
