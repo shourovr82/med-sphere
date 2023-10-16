@@ -1,7 +1,7 @@
 "use client";
 
 import InputField from "@/components/InputField/InputField";
-import { useRegistrationMutation } from "@/redux/api/authApi";
+import { useRegistrationMutation } from "@/redux/features/auth/authApi";
 import { Button, message } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -34,8 +34,6 @@ const RegisterPage = () => {
       message.error(error?.data?.message);
     }
   };
-
-  console.log(error);
 
   return (
     <div className="min-w-screen min-h-screen bg-bgColor flex items-center justify-center px-5 py-5">

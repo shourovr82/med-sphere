@@ -6,13 +6,26 @@ import {
   ReloadOutlined,
 } from "@ant-design/icons";
 
-import { Button, Input } from "antd";
+import { Button, Col, Row, message } from "antd";
 import Link from "next/link";
 import { useState } from "react";
-import dayjs from "dayjs";
+
+import { ExclamationCircleFilled } from "@ant-design/icons";
+import { Modal } from "antd";
+import {
+  useDeleteFaqMutation,
+  useGetFaqQuery,
+  useUpdateFaqMutation,
+} from "@/redux/features/faqs/faqApi";
 import UMBreadCrumb from "@/components/forms/ui/UMBreadCrumb";
 import ActionBar from "@/components/forms/ui/ActionBar";
-import TableList from "@/components/table/TableList";
+import UMTable from "@/components/forms/ui/UMTable";
+import ModalForm from "@/components/forms/modalForm/modalForm";
+import FormInput from "@/components/forms/Forms/FormInput";
+import FormTextArea from "@/components/forms/Forms/FormTextArea";
+import Form from "@/components/forms/Forms/Form";
+
+const { confirm } = Modal;
 
 const FaqLists = () => {
   const query: Record<string, any> = {};
@@ -22,109 +35,108 @@ const FaqLists = () => {
   const [sortBy, setSortBy] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState<string>("");
+  // get data
+  const { data, isLoading } = useGetFaqQuery(query);
 
   query["limit"] = size;
   query["page"] = page;
   query["sortBy"] = sortBy;
   query["sortOrder"] = sortOrder;
-  // query["searchTerm"] = searchTerm;
+  query["searchTerm"] = searchTerm;
 
-  //   const courses = data?.courses;
-  //   const meta = data?.meta;
+  // handle edit
 
-  const deleteHandler = async (id: string) => {
-    //   message.loading("Deleting.....");
-    //   try {
-    //     //   console.log(data);
-    //     const res = await deleteCourse(id);
-    //     if (res) {
-    //       message.success("Course Deleted successfully");
-    //     }
-    //   } catch (err: any) {
-    //     //   console.error(err.message);
-    //     message.error(err.message);
-    //   }
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [editData, setEditData] = useState<any>(null);
+
+  const [updateFaq, { isLoading: deleteLoading }] = useUpdateFaqMutation();
+
+  const handleEdit = async (data: any) => {
+    const editData = {
+      faqTitle: data.faqTitle,
+      faqDescription: data.faqDescription,
+    };
+
+    const id = data.faqId;
+
+    try {
+      const res = await updateFaq({ id, data: editData }).unwrap();
+
+      if (res) {
+        message.success("FAQ updated successfully");
+        setIsEditModalOpen(false);
+      }
+    } catch (error: any) {
+      console.error(error?.data?.message);
+      message.error(error?.data?.message);
+    }
   };
 
-  const dataSource = [
-    {
-      email: "masudhossainmbs129@gmail.com",
-      firstName: "Md Masud",
-      lastName: "Rana",
-      role: "ADMIN",
-      contactNumber: "01745296294",
-      address: "Thakurgoan",
-      bloodGroup: "O+",
-    },
-  ];
+  // handle edit end
+
+  // delete
+  const [deleteFaq, { isError }] = useDeleteFaqMutation();
+
+  const deleteHandler = async (id: string) => {
+    confirm({
+      title: "Do you Want to delete these items?",
+      icon: <ExclamationCircleFilled />,
+      content: "Please confirm your action!",
+      async onOk() {
+        try {
+          const res: any = await deleteFaq(id);
+          if (res && !isError) {
+            message.success("Course Deleted successfully");
+          }
+        } catch (err: any) {
+          console.error(err.data?.message);
+          message.error(err.data?.message);
+        }
+      },
+      onCancel() {
+        console.log("Cancel");
+      },
+    });
+  };
+
+  // delete end
 
   const columns = [
     {
-      title: "Full Name",
-
-      render: function (data: Record<string, string>) {
-        const fullName = `${data?.firstName} ${data?.lastName}`;
-        return <>{fullName}</>;
-      },
+      title: "Title",
+      dataIndex: "faqTitle",
       //   sorter: true,
     },
     {
-      title: "Email",
-      dataIndex: "email",
-      //   sorter: true,
-    },
-    {
-      title: "Address",
-      dataIndex: "address",
-      //   sorter: true,
-    },
-    {
-      title: "Contact No",
-      dataIndex: "contactNumber",
-      //   sorter: true,
-    },
-    {
-      title: "Blood Group",
-      dataIndex: "contactNumber",
-      //   sorter: true,
-    },
-    {
-      title: "Role",
-      dataIndex: "role",
-      //   sorter: true,
-    },
-    {
-      title: "CreatedAt",
-      dataIndex: "createdAt",
-      render: function (data: any) {
-        return data && dayjs(data).format("MMM D, YYYY hh:mm A");
-      },
+      title: "Description",
+      dataIndex: "faqDescription",
       //   sorter: true,
     },
     {
       title: "Action",
       render: function (data: any) {
         return (
-          <>
-            <Link href={`/admin/course/edit/${data?.id}`}>
-              <Button
-                style={{
-                  margin: "0px 5px",
-                }}
-                onClick={() => console.log(data)}
-                type="primary"
-              >
-                <EditOutlined />
-              </Button>
-            </Link>
+          <div className="flex gap-3">
             <Button
-              onClick={() => deleteHandler(data?.id)}
+              style={{
+                margin: "0px 5px",
+              }}
+              onClick={() => {
+                setIsEditModalOpen(true);
+                setEditData(data);
+              }}
+              type="primary"
+            >
+              <EditOutlined />
+            </Button>
+            <Button
+              onClick={() => deleteHandler(data?.faqId)}
               type="primary"
               danger
             >
               <DeleteOutlined />
             </Button>
-          </>
+          </div>
         );
       },
     },
@@ -151,62 +163,110 @@ const FaqLists = () => {
   //   console.log(dataSource);
 
   return (
-    <div className="bg-white  p-5 rounded-2xl shadow-lg ">
-      <UMBreadCrumb
-        items={[
-          {
-            label: "Dashboard",
-            link: "/dashboard",
-          },
-          {
-            label: "Faq Lists",
-            link: "/dashboard/faq-lists",
-          },
-        ]}
-      />
+    <>
+      <div className="container rounded bg-white mt-1 mb-5 p-4">
+        <UMBreadCrumb
+          items={[
+            {
+              label: "dashboard",
+              link: "/dashboard",
+            },
+            {
+              label: "faq-Lists",
+              link: "/dashboard/faq-lists",
+            },
+          ]}
+        />
 
-      <div className="mt-5">
-        <ActionBar title="FAQ Lists">
-          <Input
-            type="text"
-            size="large"
-            placeholder="Search by name, email, role..."
-            style={{
-              width: "300px",
-            }}
-            onChange={(e) => {
-              setSearchTerm(e.target.value);
-            }}
-          />
-          <div>
-            <Link href="/dashboard/add-blog">
-              <Button type="primary">Create</Button>
-            </Link>
-            {(!!sortBy || !!sortOrder || !!searchTerm) && (
-              <Button
-                onClick={resetFilters}
-                type="primary"
-                style={{ margin: "0px 5px" }}
-              >
-                <ReloadOutlined />
-              </Button>
-            )}
-          </div>
-        </ActionBar>
+        <div className="mt-5">
+          <ActionBar title="FAQ Lists">
+            <div>
+              <Link href="/dashboard/add-faq">
+                <Button type="primary">Create</Button>
+              </Link>
+              {(!!sortBy || !!sortOrder || !!searchTerm) && (
+                <Button
+                  onClick={resetFilters}
+                  type="primary"
+                  style={{ margin: "0px 5px" }}
+                >
+                  <ReloadOutlined />
+                </Button>
+              )}
+            </div>
+          </ActionBar>
+        </div>
+
+        <UMTable
+          loading={isLoading}
+          columns={columns}
+          dataSource={data}
+          pageSize={size}
+          // totalPages="meta?.total"
+          showSizeChanger={true}
+          onPaginationChange={onPaginationChange}
+          onTableChange={onTableChange}
+          showPagination={true}
+        />
       </div>
 
-      <TableList
-        // loading={isLoading}
-        columns={columns}
-        dataSource={dataSource}
-        pageSize={size}
-        // totalPages="meta?.total"
-        showSizeChanger={true}
-        onPaginationChange={onPaginationChange}
-        onTableChange={onTableChange}
-        showPagination={true}
-      />
-    </div>
+      {/* edit */}
+
+      {isEditModalOpen && editData && (
+        <ModalForm
+          open={isEditModalOpen}
+          setOpen={setIsEditModalOpen}
+          title="FAQ"
+          isLoading={deleteLoading}
+        >
+          <Form submitHandler={handleEdit} defaultValues={editData}>
+            <div
+              style={{
+                border: "1px solid #d9d9d9",
+                borderRadius: "5px",
+                padding: "15px",
+                marginBottom: "10px",
+              }}
+            >
+              <Row gutter={{ xs: 24, xl: 8, lg: 8, md: 24 }}>
+                <Col span={24} style={{ margin: "10px 0" }}>
+                  <FormInput
+                    name="faqTitle"
+                    label="FAQ Title"
+                    placeholder="FAQ Title"
+                    size="large"
+                    type="text"
+                  />
+                </Col>
+                <Col span={24} style={{ margin: "10px 0" }}>
+                  <FormTextArea
+                    name="faqDescription"
+                    label="FAQ Description"
+                    rows={8}
+                    placeholder="Enter FAQ Description"
+                  />
+                </Col>{" "}
+              </Row>
+            </div>
+
+            <div className="flex gap-5">
+              <Button loading={deleteLoading} htmlType="submit">
+                Update FAQ
+              </Button>
+
+              <Button
+                onClick={() => setIsEditModalOpen(false)}
+                htmlType="button"
+                type="primary"
+                danger
+              >
+                Cancel
+              </Button>
+            </div>
+          </Form>
+        </ModalForm>
+      )}
+    </>
   );
 };
 

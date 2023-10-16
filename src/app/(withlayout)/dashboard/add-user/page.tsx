@@ -8,6 +8,8 @@ import UMBreadCrumb from "@/components/forms/ui/UMBreadCrumb";
 import UploadImage from "@/components/forms/ui/UploadImage";
 import { Button, Col, Row, message } from "antd";
 import SpecializationFormField from "@/components/forms/Forms/specializationField/SpecializationFormField";
+import { useRegistrationMutation } from "@/redux/features/auth/authApi";
+import { useRouter } from "next/navigation";
 
 const AddUserPage = () => {
   const roles = [
@@ -24,39 +26,45 @@ const AddUserPage = () => {
 
   const [isRoleIsDoctor, setIsRoleIsDoctor] = useState(false);
 
-  const adminOnSubmit = async (values: any) => {
-    const obj = { ...values };
-    const file = obj["file"];
-    delete obj["file"];
-    const data = JSON.stringify(obj);
-    const formData = new FormData();
-    formData.append("file", file as Blob);
-    formData.append("data", data);
-    message.loading("Creating...");
+  const [registration, { isLoading, error }] = useRegistrationMutation();
+  const router = useRouter();
+
+  const handleCreateUserSubmit = async (values: any) => {
+    const userData = {
+      firstName: values.firstName,
+      lastName: values.lastName,
+      role: values.role,
+      email: values.email,
+      password: values.password,
+      profileImage: values.file,
+    };
+    message.loading("Creating User");
     try {
-      // const res = await addFacultyWithFormData(formData);
-      // if (!!res) {
-      //   message.success("Faculty created successfully!");
-      // }
-    } catch (err: any) {
-      // console.error(err.message);
+      const res = await registration(userData);
+      console.log(res);
+      // @ts-ignore
+      if (res?.data && !error) {
+        message.success("Successfully Created User");
+        router.push("/dashboard/user-lists");
+      }
+    } catch (error: any) {
+      console.error(error?.data?.message);
+      message.error(error?.data?.message);
     }
   };
-
-  const base = "super-admin";
   return (
     <div className="bg-white  p-5 rounded-2xl shadow-lg">
       <UMBreadCrumb
         items={[
-          { label: `${base}`, link: `/dashboard` },
-          { label: "add-user", link: `/dashboard/add-user` },
+          { label: `Dashboard`, link: `/dashboard` },
+          { label: "User List", link: `/dashboard/add-user` },
         ]}
       />
       <div className="mt-3">
         <div className="mb-3">
           <h1 className="text-lg text-black/70 font-bold">Create New User</h1>
         </div>
-        <Form submitHandler={adminOnSubmit}>
+        <Form submitHandler={handleCreateUserSubmit}>
           {/* faculty information */}
           <div
             style={{
@@ -122,7 +130,7 @@ const AddUserPage = () => {
               </Col>{" "}
               <Col span={12} style={{ margin: "10px 0" }}>
                 <label htmlFor="image">Profile Image</label>
-                <UploadImage name="file" />
+                <UploadImage key="file" name="file" />
               </Col>
             </Row>
           </div>

@@ -13,8 +13,13 @@ import dayjs from "dayjs";
 import UMBreadCrumb from "@/components/forms/ui/UMBreadCrumb";
 import TableList from "@/components/table/TableList";
 import ActionBar from "@/components/forms/ui/ActionBar";
+import { useGetAllUsersQuery } from "@/redux/features/users/userApi";
 
 const UserLists = () => {
+  const { data: getAllUserRes, isLoading } = useGetAllUsersQuery(null);
+
+  const { data: allUsers } = getAllUserRes || {};
+
   const query: Record<string, any> = {};
 
   const [page, setPage] = useState<number>(1);
@@ -46,52 +51,48 @@ const UserLists = () => {
     //   }
   };
 
-  const dataSource = [
-    {
-      email: "shafinur512@gmail.com",
-      firstName: "Shafinur",
-      lastName: "Islam",
-      role: "ADMIN",
-      contactNumber: "01714486218",
-      address: "Dhaka",
-      bloodGroup: "O+",
-    },
-  ];
-
   const columns = [
     {
       title: "Full Name",
-
-      render: function (data: Record<string, string>) {
-        const fullName = `${data?.firstName} ${data?.lastName}`;
+      render: function (data: any) {
+        console.log(data);
+        const fullName = `${data?.profile?.firstName} ${data?.profile?.lastName}`;
         return <>{fullName}</>;
       },
-      //   sorter: true,
     },
     {
       title: "Email",
       dataIndex: "email",
-      //   sorter: true,
     },
     {
       title: "Address",
-      dataIndex: "address",
-      //   sorter: true,
+      render: function (data: any) {
+        return <>{data?.profile?.address ? data?.profile?.address : "--"}</>;
+      },
     },
     {
       title: "Contact No",
-      dataIndex: "contactNumber",
-      //   sorter: true,
+      render: function (data: any) {
+        return (
+          <>
+            {data?.profile?.contactNumber ? data?.profile?.contactNumber : "--"}
+          </>
+        );
+      },
     },
     {
       title: "Blood Group",
-      dataIndex: "contactNumber",
-      //   sorter: true,
+      render: function (data: any) {
+        return (
+          <>{data?.profile?.bloodGroup ? data?.profile?.bloodGroup : "--"}</>
+        );
+      },
     },
     {
       title: "Role",
-      dataIndex: "role",
-      //   sorter: true,
+      render: function (data: any) {
+        return <>{data?.profile?.role ? data?.profile?.role : "--"}</>;
+      },
     },
     {
       title: "CreatedAt",
@@ -198,8 +199,9 @@ const UserLists = () => {
       <TableList
         // loading={isLoading}
         columns={columns}
-        dataSource={dataSource}
+        dataSource={allUsers}
         pageSize={size}
+        loading={isLoading}
         // totalPages="meta?.total"
         showSizeChanger={true}
         onPaginationChange={onPaginationChange}

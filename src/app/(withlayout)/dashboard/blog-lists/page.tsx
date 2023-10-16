@@ -4,63 +4,92 @@ import {
   DeleteOutlined,
   EditOutlined,
   ReloadOutlined,
+  ExclamationCircleFilled,
 } from "@ant-design/icons";
-
-import { Button, Input } from "antd";
+import { Button, Input, Modal, message } from "antd";
+const { confirm } = Modal;
 import Link from "next/link";
 import { useState } from "react";
 import dayjs from "dayjs";
 import UMBreadCrumb from "@/components/forms/ui/UMBreadCrumb";
 import TableList from "@/components/table/TableList";
 import ActionBar from "@/components/forms/ui/ActionBar";
+import {
+  useDeleteBlogMutation,
+  useGetBlogsQuery,
+  useUpdateBlogMutation,
+} from "@/redux/features/blogs/blogApi";
 
 const BlogLists = () => {
   const query: Record<string, any> = {};
-
   const [page, setPage] = useState<number>(1);
   const [size, setSize] = useState<number>(10);
   const [sortBy, setSortBy] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState<string>("");
+  // get data
+  const { data, isLoading } = useGetBlogsQuery(query);
 
   query["limit"] = size;
   query["page"] = page;
   query["sortBy"] = sortBy;
   query["sortOrder"] = sortOrder;
-  // query["searchTerm"] = searchTerm;
+  query["searchTerm"] = searchTerm;
 
-  //   const courses = data?.courses;
-  //   const meta = data?.meta;
+  // handle edit
 
-  const deleteHandler = async (id: string) => {
-    //   message.loading("Deleting.....");
-    //   try {
-    //     //   console.log(data);
-    //     const res = await deleteCourse(id);
-    //     if (res) {
-    //       message.success("Course Deleted successfully");
-    //     }
-    //   } catch (err: any) {
-    //     //   console.error(err.message);
-    //     message.error(err.message);
-    //   }
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [editData, setEditData] = useState<any>(null);
+
+  const [updateBlog, { isLoading: deleteLoading }] = useUpdateBlogMutation();
+
+  const handleEdit = async (data: any) => {
+    const editData = {
+      faqTitle: data.faqTitle,
+      faqDescription: data.faqDescription,
+    };
+
+    const id = data.blogId;
+
+    try {
+      const res = await updateBlog({ id, data: editData }).unwrap();
+
+      if (res) {
+        message.success("FAQ updated successfully");
+        setIsEditModalOpen(false);
+      }
+    } catch (error: any) {
+      console.error(error?.data?.message);
+      message.error(error?.data?.message);
+    }
   };
 
-  const dataSource = [
-    {
-      blogImage: "blogImage ",
-      blogTitle: "new Blog ",
-      blogDescription: "blogDescription",
-      createdAt: "createdAt",
+  // handle edit end
 
-      address: "Dhaka",
-      profile: {
-        firstName: "Shafin",
-        lastName: "Rahman",
+  // delete
+  const [deleteBlog, { isError }] = useDeleteBlogMutation();
+
+  const deleteHandler = async (id: string) => {
+    confirm({
+      title: "Do you Want to delete these items?",
+      icon: <ExclamationCircleFilled />,
+      content: "Please confirm your action!",
+      async onOk() {
+        try {
+          const res: any = await deleteBlog(id);
+          if (res && !isError) {
+            message.success("Course Deleted successfully");
+          }
+        } catch (err: any) {
+          console.error(err.data?.message);
+          message.error(err.data?.message);
+        }
       },
-    },
-  ];
-
+      onCancel() {
+        console.log("Cancel");
+      },
+    });
+  };
   const columns = [
     {
       title: "Image",
@@ -100,26 +129,27 @@ const BlogLists = () => {
       title: "Action",
       render: function (data: any) {
         return (
-          <>
-            <Link href={`/admin/course/edit/${data?.id}`}>
-              <Button
-                style={{
-                  margin: "0px 5px",
-                }}
-                onClick={() => console.log(data)}
-                type="primary"
-              >
-                <EditOutlined />
-              </Button>
-            </Link>
+          <div className="flex gap-3">
             <Button
-              onClick={() => deleteHandler(data?.id)}
+              style={{
+                margin: "0px 5px",
+              }}
+              onClick={() => {
+                setIsEditModalOpen(true);
+                setEditData(data);
+              }}
+              type="primary"
+            >
+              <EditOutlined />
+            </Button>
+            <Button
+              onClick={() => deleteHandler(data?.blogId)}
               type="primary"
               danger
             >
               <DeleteOutlined />
             </Button>
-          </>
+          </div>
         );
       },
     },
@@ -191,7 +221,7 @@ const BlogLists = () => {
       <TableList
         // loading={isLoading}
         columns={columns}
-        dataSource={dataSource}
+        dataSource={data}
         pageSize={size}
         // totalPages="meta?.total"
         showSizeChanger={true}

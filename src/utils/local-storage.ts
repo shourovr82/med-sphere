@@ -11,3 +11,11 @@ export const getFromLocalStorage = (key: string) => {
   }
   return localStorage.getItem(key);
 };
+
+export const setCollapsToLocalStorage = (key: string, token: boolean) => {
+  if (!key || typeof window === "undefined") {
+    return "";
+  }
+  // @ts-ignore
+  return localStorage.setItem(key, token);
+};
