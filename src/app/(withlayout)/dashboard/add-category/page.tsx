@@ -4,43 +4,43 @@
 import Form from "@/components/forms/Forms/Form";
 
 import UMBreadCrumb from "@/components/forms/ui/UMBreadCrumb";
-import UploadImage from "@/components/forms/ui/UploadImage";
+
 import { Button, Col, Row, message } from "antd";
 import FormTextArea from "@/components/forms/Forms/FormTextArea";
-import { useCreateBlogMutation } from "@/redux/features/blogs/blogApi";
 import { useRouter } from "next/navigation";
+import FormInput from "@/components/forms/Forms/FormInput";
+import { useCreateCategoryMutation } from "@/redux/features/categories/categoryApi";
 
-const AddBlogPage = () => {
-  const [createBlog, { isLoading, isError }] = useCreateBlogMutation();
+const AddCategoryPage = () => {
+  const [createCategory, { isLoading, isError }] = useCreateCategoryMutation();
   // submit
   const router = useRouter();
   const blogOnSubmit = async (data: any) => {
     message.loading("Creating new Faq");
-    const bloData = {
-      blogTitle: data.blogTitle,
-      blogDescription: data.blogDescription,
-      blogImage: data.blogImage,
+    const categoryData = {
+      categoryName: data.categoryName,
+      description: data.description,
     };
     try {
-      const res = await createBlog(bloData);
+      const res = await createCategory(categoryData);
       console.log(res);
       // @ts-ignore
       if (res?.data && !isError) {
-        message.success("Blog created successfully");
-        router.push("/dashboard/blog-lists");
+        message.success("Category created successfully");
+        router.push("/dashboard/category-list");
       }
     } catch (err: any) {
       console.error(err?.data?.message);
       message.error("something went wrong");
     }
   };
-  const base = "super-admin";
+
   return (
     <div className="bg-white  p-5 rounded-2xl shadow-lg">
       <UMBreadCrumb
         items={[
-          { label: `${base}`, link: `/dashboard` },
-          { label: "add-blog", link: `/dashboard/add-blog` },
+          { label: `Dashboard`, link: `/dashboard` },
+          { label: "add-Category", link: `/dashboard/add-category` },
         ]}
       />
       <div className="mt-3">
@@ -60,27 +60,24 @@ const AddBlogPage = () => {
             <p
               style={{ fontSize: "18px", fontWeight: "500", margin: "5px 0px" }}
             >
-              Blog information
+              Category information
             </p>
             <Row gutter={{ xs: 24, xl: 8, lg: 8, md: 24 }}>
-              <Col span={3} style={{ margin: "10px 0" }}>
-                <p className="pb-2">Blog Image</p>
-                <UploadImage name="blogImage" />
-              </Col>{" "}
-              <Col span={21} style={{ margin: "10px 0" }}>
-                <FormTextArea name="blogTitle" label="Blog Title" rows={4} />
+              <Col span={24} style={{ margin: "10px 0" }}>
+                <FormInput name="categoryName" label="Category Name" />
               </Col>
               <Col span={24} style={{ margin: "10px 0" }}>
                 <FormTextArea
-                  name="blogDescription"
-                  label="Blog Description"
+                  name="description"
+                  label="Category Description"
                   rows={8}
                 />
-              </Col>{" "}
+              </Col>
             </Row>
+            <Button type="default" htmlType="submit">
+              submit
+            </Button>
           </div>
-
-          <Button htmlType="submit">submit</Button>
         </Form>
         <br />
         <br />
@@ -91,4 +88,4 @@ const AddBlogPage = () => {
   );
 };
 
-export default AddBlogPage;
+export default AddCategoryPage;

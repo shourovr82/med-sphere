@@ -73,6 +73,23 @@ export const sidebarItems = (role: string) => {
       ],
     },
     {
+      label: "Category Management",
+      key: "category-management",
+      icon: <CustomerServiceOutlined />,
+      children: [
+        {
+          label: <Link href={`/dashboard/add-category`}>Add Category</Link>,
+          key: `/add-category`,
+          icon: <FolderAddOutlined />,
+        },
+        {
+          label: <Link href={`/dashboard/category-list`}>Category List</Link>,
+          key: `/category-list`,
+          icon: <CloudServerOutlined />,
+        },
+      ],
+    },
+    {
       label: "service management",
       key: "service-management",
       icon: <CustomerServiceOutlined />,

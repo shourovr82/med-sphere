@@ -34,3 +34,13 @@ export const bloodGroup = [
     value: "AB-",
   },
 ];
+export const ServiceStatus = [
+  {
+    label: "Available",
+    value: "available",
+  },
+  {
+    label: "Upcoming",
+    value: "upcoming",
+  },
+];

@@ -16,6 +16,7 @@ type SelectFieldProps = {
   value?: string | string[] | undefined;
   placeholder?: string;
   label?: string;
+  loading?: boolean;
   defaultValue?: SelectOptions;
   handleChange?: (el: string) => void;
   setIsRoleIsDoctor?: (el: boolean) => void;
@@ -28,22 +29,15 @@ const FormSelectField = ({
   placeholder = "select",
   options,
   label,
+  loading,
   defaultValue,
   handleChange,
-  setIsRoleIsDoctor,
 }: SelectFieldProps) => {
-  const { control, watch } = useFormContext();
-  const srv = watch();
-
-  if (srv?.role === USER_ROLE.DOCTOR && setIsRoleIsDoctor) {
-    setIsRoleIsDoctor(true);
-  } else if (srv?.role !== USER_ROLE.DOCTOR && setIsRoleIsDoctor) {
-    setIsRoleIsDoctor(false);
-  }
+  const { control } = useFormContext();
 
   return (
     <>
-      <p className="mb-2">{label ? label : null}</p>
+      <p className="py-2">{label ? label : null}</p>
 
       <Controller
         control={control}
@@ -53,6 +47,7 @@ const FormSelectField = ({
             onChange={handleChange ? handleChange : onChange}
             size={size}
             options={options}
+            loading={loading}
             value={value}
             style={{ width: "100%" }}
             placeholder={placeholder}

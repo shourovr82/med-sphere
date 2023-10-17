@@ -28,7 +28,6 @@ const ModalForm = ({
       width={width ?? 1000}
       confirmLoading={isLoading}
       okText={`Update ${title}`}
-      closable={false}
       footer={null}
     >
       {children}
