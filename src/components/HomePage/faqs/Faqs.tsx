@@ -63,10 +63,10 @@ const Faqs = () => {
         <p className="text-primary md:text-[20px] text-[16px] font-semibold">
           ABOUT MED-SPHERE
         </p>
-        <p className="font-poppins md:text-[45px] text-[35px] md:w-[550px]">
+        <p className=" md:text-[45px] text-[35px] md:w-[550px]">
           We Collaborate for Better Healthcare
         </p>
-        <p className="md:w-[500px] text-gray-[400px] font-poppins text-gray-500">
+        <p className="md:w-[500px] text-gray-[400px]  text-gray-500">
           The benefits of MEDDPICC are that it allows sellers to quickly qualify
           or disqualify opportunities.
         </p>

@@ -63,7 +63,7 @@ const BlogPage = () => {
           <p className="text-primary md:text-[20px] text-[16px] font-semibold">
             BLOG NEWS
           </p>
-          <p className="font-poppins md:text-[45px] text-[35px] md:w-[550px]">
+          <p className=" md:text-[45px] text-[35px] md:w-[550px]">
             Articles From Meddic
           </p>
         </div>

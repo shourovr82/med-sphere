@@ -86,7 +86,7 @@ const FaqLists = () => {
         try {
           const res: any = await deleteFaq(id);
           if (res && !isError) {
-            message.success("Course Deleted successfully");
+            message.success("FAQ Deleted successfully");
           }
         } catch (err: any) {
           console.error(err.data?.message);

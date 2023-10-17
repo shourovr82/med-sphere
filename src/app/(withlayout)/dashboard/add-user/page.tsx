@@ -36,7 +36,7 @@ const AddUserPage = () => {
       role: values.role,
       email: values.email,
       password: values.password,
-      profileImage: values.file,
+      profileImage: values.profileImage,
     };
     message.loading("Creating User");
     try {
@@ -130,7 +130,7 @@ const AddUserPage = () => {
               </Col>{" "}
               <Col span={12} style={{ margin: "10px 0" }}>
                 <label htmlFor="image">Profile Image</label>
-                <UploadImage key="file" name="file" />
+                <UploadImage key="profileImage" name="profileImage" />
               </Col>
             </Row>
           </div>

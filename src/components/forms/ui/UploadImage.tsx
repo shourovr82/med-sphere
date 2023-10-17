@@ -94,7 +94,7 @@ const UploadImage = ({ name, defaultImage }: ImageUploadProps) => {
           onChange={handleOnChange}
           listType="picture-circle"
           defaultFileList={defaultFileList}
-          className="image-upload-grid"
+          className="image-upload-grid "
           onPreview={handlePreview}
         >
           {defaultFileList.length >= 1 ? null : (

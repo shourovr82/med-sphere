@@ -23,10 +23,10 @@ const HeroSection = () => {
         <p className="text-[#9c01fe] md:text-[20px] text-[16px] font-semibold">
           WELCOME TO MED-SPHERE
         </p>
-        <p className="font-poppins md:text-[55px] text-[35px] md:w-[550px]">
+        <p className=" md:text-[55px] text-[35px] md:w-[550px]">
           We Are Here to Hear <br /> and Heal Your <br /> Health Problems
         </p>
-        <p className="md:w-[500px] text-gray-[400px] font-poppins text-gray-500">
+        <p className="md:w-[500px] text-gray-[400px]  text-gray-500">
           The benefits of MEDDPICC are that it allows sellers to quickly qualify
           or disqualify opportunities before they get too far into the sales
           process and gives sellers a framework to start from.

@@ -17,12 +17,7 @@ const config: Config = {
     },
     extend: {
       backgroundImage: {},
-      fontFamily: {
-        inter: ["Inter", "sans-serif"],
-        poppins: ["Poppins", "sans-serif"],
-        roboto: ["Roboto", "sans-serif"],
-        "Player-Display": ["Playfair Display", "serif"],
-      },
+      fontFamily: {},
       colors: {
         primary: "#47177e",
         bgColor: "#F3F3FF",

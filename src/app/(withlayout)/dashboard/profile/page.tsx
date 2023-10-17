@@ -1,221 +1,409 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import React from "react";
+
 import Form from "@/components/forms/Forms/Form";
 import UploadImage from "@/components/forms/ui/UploadImage";
 import FormInput from "@/components/forms/Forms/FormInput";
+import {
+  useGetMyProfileQuery,
+  useUpdateMyProfileMutation,
+  useUpdateMyUserInfoMutation,
+} from "@/redux/features/users/userApi";
+import dayjs from "dayjs";
+import Image from "next/image";
+import { Button, Col, Row, Spin, message } from "antd";
+import { useState } from "react";
+import ModalForm from "@/components/forms/modalForm/modalForm";
+import FormSelectField from "@/components/forms/Forms/FormSelectField";
+import { bloodGroup } from "@/constants/common";
+import profilePhoto from "@/assets/profile/profilePic.jpg";
 
 const Profile = () => {
-  const [isEdit, setIsEdit] = React.useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isPassEmailEditModalOpen, setIsPassEmailEditModalOpen] =
+    useState(false);
 
-  const adminOnSubmit = async (values: any) => {
-    const obj = { ...values };
-    const file = obj["file"];
-    delete obj["file"];
-    const data = JSON.stringify(obj);
-    const formData = new FormData();
-    formData.append("file", file as Blob);
-    formData.append("data", data);
-    // message.loading("Creating...");
+  const {
+    data: myProfileResponse,
+    isError,
+    isLoading,
+    isFetching,
+    error,
+  } = useGetMyProfileQuery(undefined);
+  const [
+    updateMyProfile,
+    { isLoading: updateLoadings, isError: isErrorUpdate },
+  ] = useUpdateMyProfileMutation();
+
+  const handleEdit = async (data: any) => {
+    const updateData = {
+      firstName: data?.profile?.firstName,
+      lastName: data?.profile?.lastName,
+      profileImage: data?.profileImage,
+      contactNumber: data?.profile?.contactNumber,
+      address: data?.profile?.address,
+      bloodGroup: data?.profile?.bloodGroup,
+    };
+
     try {
-      // const res = await addFacultyWithFormData(formData);
-      // if (!!res) {
-      //   message.success("Faculty created successfully!");
-      // }
-    } catch (err: any) {
-      // console.error(err.message);
+      const res = await updateMyProfile(updateData).unwrap();
+      if (res && !isErrorUpdate) {
+        message.success("Profile updated successfully");
+        setIsEditModalOpen(false);
+      }
+    } catch (error: any) {
+      console.error(error?.data?.message);
+      message.error(error?.data?.message);
     }
   };
+  const [
+    updateMyUserInfo,
+    { isLoading: updateUserLoadings, isError: isUserErrorUpdate },
+  ] = useUpdateMyUserInfoMutation();
 
-  const profileData = {
-    firstName: "Shafinur Islam",
-    lastName: "Shourov",
-    phone: "01700000000",
-    address: "Dhaka",
-    postcode: "1212",
-    state: "Dhaka",
-    area: "Dhaka",
-    country: "Bangladesh",
+  const handleUpdateMyUserInfo = async (data: any) => {
+    const updateData = {
+      email: data?.email,
+      oldPassword: data?.oldPassword,
+      newPassword: data?.newPassword,
+    };
+
+    try {
+      const res = await updateMyUserInfo(updateData).unwrap();
+      if (res && !isUserErrorUpdate) {
+        message.success(" Successfully Updated");
+        setIsPassEmailEditModalOpen(false);
+      }
+      if (!res) {
+        message.error("Old Password is not correct");
+      }
+    } catch (error: any) {
+      console.log(error);
+      console.error(error?.data?.message);
+      message.error(error?.data?.message);
+    }
   };
-
   return (
-    <div className="container rounded-2xl shadow-2xl  bg-white mt-5 mb-5">
-      <Form submitHandler={adminOnSubmit} defaultValues={profileData}>
-        <div className="md:grid grid-cols-3 gap-4">
-          <div className="col-span-1 border-r">
-            <div className="flex flex-col items-center text-center p-3 py-5">
-              {isEdit ? (
-                <UploadImage name="file" />
-              ) : (
-                <img
-                  className="rounded-full mt-5 w-60"
-                  src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
-                  alt="profile"
-                />
-              )}
+    <>
+      <section className=" rounded-2xl shadow-2xl  bg-white mt-5 mb-5">
+        <div className="h-[120px] rounded-t-2xl bg-blue-200 w-full"></div>
+        <div className="flex justify-between p-5 ">
+          <div className="flex  gap-10">
+            <div className="-mt-20 ">
+              <Image
+                width={200}
+                height={200}
+                src={myProfileResponse?.profile?.profileImage ?? profilePhoto}
+                className="w-[200px]  h-[200px]   object-cover object-center  rounded-full border shadow-xl"
+                alt=""
+              />
+            </div>
 
-              <span className="font-bold mt-5">Shafinur Islam</span>
-              <span className="text-gray-500">shafinur512@gmail.com</span>
+            <div>
+              <h2 className="text-2xl font-semibold">Shafin</h2>
+              <p className="font-medium font-mono text-[#9f9fa3]">
+                {myProfileResponse?.email}
+              </p>
             </div>
           </div>
-          <div className="col-span-2 border-r">
-            <div className="p-3 py-5">
-              <div className="flex justify-between items-center mb-3">
-                <h4 className="text-right text-[22px] font-semibold">
-                  Profile Settings
-                </h4>
-                <div className="mt-5 text-center">
-                  {isEdit ? (
-                    <button
-                      onClick={() => setIsEdit(!isEdit)}
-                      className="bg-primary hover:bg-blue-700 text-white font-bold py-2 px-4 rounded "
-                      type="submit"
-                    >
-                      Update Profile
-                    </button>
-                  ) : (
-                    <button
-                      onClick={() => setIsEdit(!isEdit)}
-                      className="bg-primary hover:bg-blue-700 text-white font-bold py-2 px-4 rounded "
-                      type="button"
-                    >
-                      Edit Profile
-                    </button>
-                  )}
-                </div>
-              </div>
-              <div className="grid grid-cols-2   gap-4">
-                {/* first name */}
-                <div>
-                  <FormInput
-                    label="First Name"
-                    placeholder="first name"
-                    type="text"
-                    name="firstName"
-                    disabled={!isEdit}
-                    size="large"
-                  />
-                </div>
-                <div>
-                  <FormInput
-                    label="Last Name"
-                    placeholder="last name"
-                    type="text"
-                    disabled={!isEdit}
-                    size="large"
-                    name="lastName"
-                  />
-                </div>
 
-                {/* last name */}
-              </div>
-              <div className="grid grid-cols-1 gap-4 mt-3">
-                <FormInput
-                  label="Mobile Number"
-                  placeholder="Enter phone number"
-                  type="text"
-                  disabled={!isEdit}
-                  size="large"
-                  name="phone"
-                />
-
-                {/* Address */}
-                <FormInput
-                  label="Address Line 1"
-                  placeholder="Enter address line 1"
-                  type="text"
-                  disabled={!isEdit}
-                  size="large"
-                  name="address"
-                />
-
-                {/* Postcode */}
-                <FormInput
-                  label="Postcode"
-                  placeholder="Enter postcode"
-                  type="number"
-                  disabled={!isEdit}
-                  size="large"
-                  name="postcode"
-                />
-
-                {/* State */}
-                <FormInput
-                  label="State"
-                  placeholder="Enter state"
-                  type="text"
-                  disabled={!isEdit}
-                  size="large"
-                  name="state"
-                />
-
-                {/* Area */}
-                <FormInput
-                  label="Area"
-                  placeholder="Enter area"
-                  type="text"
-                  disabled={!isEdit}
-                  size="large"
-                  name="area"
-                />
-
-                {/* <label className="block text-gray-700 font-bold mb-2">
-                Email ID
-              </label>
-              <input
-                type="text"
-                className="form-input mt-1 block w-full"
-                placeholder="Enter email id"
-                value=""
-              /> */}
-              </div>
-              <div className="grid grid-cols-2 gap-4 mt-3">
-                <div className="col-span-1">
-                  {/* <label className="block text-gray-700 font-bold mb-2">
-                  Country
-                </label>
-                <input
-                  type="text"
-                  className="form-input mt-1 block w-full"
-                  placeholder="country"
-                  value=""
-                /> */}
-                  {/* country */}
-                  <FormInput
-                    label="Country"
-                    placeholder="Enter country"
-                    type="text"
-                    disabled={!isEdit}
-                    size="large"
-                    name="country"
-                  />
-                </div>
-                <div className="col-span-1">
-                  {/* <label className="block text-gray-700 font-bold mb-2">
-                  State/Region
-                </label>
-                <input
-                  type="text"
-                  className="form-input mt-1 block w-full"
-                  value=""
-                  placeholder="state"
-                /> */}
-                  {/* State/Region */}
-                  <FormInput
-                    label="State/Region"
-                    placeholder="Enter state/region"
-                    type="text"
-                    disabled={!isEdit}
-                    size="large"
-                    name="state"
-                  />
-                </div>
-              </div>
-            </div>
+          <div className="flex gap-3 ">
+            <Button
+              onClick={() => {
+                setIsPassEmailEditModalOpen(true);
+              }}
+              type="default"
+              className="font-medium"
+              size="middle"
+            >
+              Change Email or Password
+            </Button>
+            <Button
+              onClick={() => {
+                setIsEditModalOpen(true);
+              }}
+              type="default"
+              className="font-medium"
+              size="middle"
+            >
+              Edit Profile
+            </Button>
           </div>
         </div>
-      </Form>
-    </div>
+        {/*  */}
+        <div className="flex relative justify-center">
+          <div className="absolute">
+            {isLoading ||
+              (isFetching && <Spin spinning={isLoading || isFetching}></Spin>)}
+          </div>
+        </div>
+        <div className="p-5">
+          <div className="px-4 sm:px-0">
+            <h3 className="text-base font-semibold leading-7 text-gray-900">
+              Profile Information
+            </h3>
+            <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
+              Personal details
+            </p>
+          </div>
+          <div className="mt-6 border-t font-semibold border-gray-100">
+            <dl className="divide-y divide-gray-100">
+              <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                <dt className="text-sm font-medium leading-6 text-gray-900">
+                  First Name
+                </dt>
+                <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                  {myProfileResponse?.profile?.firstName}
+                </dd>
+              </div>
+              <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                <dt className="text-sm font-medium leading-6 text-gray-900">
+                  Last Name
+                </dt>
+                <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                  {myProfileResponse?.profile?.lastName}
+                </dd>
+              </div>
+
+              <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                <dt className="text-sm font-medium leading-6 text-gray-900">
+                  Email address
+                </dt>
+                <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                  {myProfileResponse?.email}
+                </dd>
+              </div>
+              <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                <dt className="text-sm font-medium leading-6 text-gray-900">
+                  Role
+                </dt>
+                <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                  {myProfileResponse?.profile?.role}
+                </dd>
+              </div>
+              <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                <dt className="text-sm font-medium leading-6 text-gray-900">
+                  Contact Number
+                </dt>
+                <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                  {myProfileResponse?.profile?.contactNumber ?? "- -"}
+                </dd>
+              </div>
+              <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                <dt className="text-sm font-medium leading-6 text-gray-900">
+                  Address
+                </dt>
+                <dd className="mt-1 text-sm  leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                  {myProfileResponse?.profile?.address ?? "- -"}
+                </dd>
+              </div>
+              <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                <dt className="text-sm font-medium leading-6 text-gray-900">
+                  Blood Group
+                </dt>
+                <dd className="mt-1 text-sm  leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                  {myProfileResponse?.profile?.bloodGroup ?? "- -"}
+                </dd>
+              </div>
+              <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                <dt className="text-sm font-medium leading-6 text-gray-900">
+                  Profile Created at
+                </dt>
+                <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                  {myProfileResponse?.profile?.createdAt &&
+                    dayjs(myProfileResponse?.profile?.createdAt).format(
+                      "MMM D, YYYY hh:mm A"
+                    )}
+                </dd>
+              </div>
+              <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                <dt className="text-sm font-medium leading-6 text-gray-900">
+                  Profile Updated at
+                </dt>
+                <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                  {myProfileResponse?.profile?.updatedAt &&
+                    dayjs(myProfileResponse?.profile?.updatedAt).format(
+                      "MMM D, YYYY hh:mm A"
+                    )}
+                </dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+      </section>
+      {isEditModalOpen && (
+        <ModalForm
+          open={isEditModalOpen}
+          setOpen={setIsEditModalOpen}
+          title="Update Profile"
+          isLoading={updateLoadings}
+          width={900}
+        >
+          <Form defaultValues={myProfileResponse} submitHandler={handleEdit}>
+            {/* profile information  */}
+            <div
+              style={{
+                border: "1px solid #d9d9d9",
+                borderRadius: "5px",
+                padding: "15px",
+                marginBottom: "10px",
+              }}
+            >
+              <p
+                style={{
+                  fontSize: "18px",
+                  fontWeight: "500",
+                  margin: "5px 0px",
+                }}
+              >
+                Basic information
+              </p>
+              <Row gutter={{ xs: 24, xl: 8, lg: 8, md: 24 }}>
+                <Col span={12}>
+                  <FormInput
+                    name="profile.firstName"
+                    label="First Name"
+                    size="large"
+                    placeholder="Enter First Name"
+                  />
+                </Col>
+                <Col span={12}>
+                  <FormInput
+                    name="profile.lastName"
+                    label="Last Name."
+                    size="large"
+                    placeholder="Enter Last Name"
+                  />
+                </Col>
+                <Col span={12}>
+                  <FormInput
+                    name="profile.contactNumber"
+                    label="Contact Number"
+                    size="large"
+                    placeholder="Enter Contact Number"
+                  />
+                </Col>
+                <Col span={12} className="mt-2">
+                  <FormSelectField
+                    name="profile.bloodGroup"
+                    label="Blood Group"
+                    options={bloodGroup}
+                    size="large"
+                    placeholder="Select Blood Group"
+                  />
+                </Col>
+                <Col span={12}>
+                  <FormInput
+                    name="profile.address"
+                    label="Address"
+                    size="large"
+                    placeholder="Enter Address"
+                  />
+                </Col>
+                <Col span={24} className="mt-2">
+                  <label htmlFor="image">Profile Image</label>
+                  <UploadImage
+                    name="profileImage"
+                    key="profileImage"
+                    defaultImage={myProfileResponse?.profile?.profileImage}
+                  />
+                </Col>
+              </Row>
+            </div>
+
+            <div className="flex  justify-end gap-5">
+              <Button
+                htmlType="submit"
+                type="primary"
+                loading={updateLoadings}
+                disabled={updateLoadings}
+              >
+                Update User
+              </Button>
+
+              <Button
+                onClick={() => setIsEditModalOpen(false)}
+                htmlType="button"
+                type="default"
+              >
+                Cancel
+              </Button>
+            </div>
+          </Form>
+        </ModalForm>
+      )}
+      {isPassEmailEditModalOpen && (
+        <ModalForm
+          open={isPassEmailEditModalOpen}
+          setOpen={setIsPassEmailEditModalOpen}
+          title="Update Email and Password"
+          isLoading={updateUserLoadings}
+          width={500}
+        >
+          <Form
+            defaultValues={myProfileResponse}
+            submitHandler={handleUpdateMyUserInfo}
+          >
+            {/* profile information  */}
+            <div
+              style={{
+                border: "1px solid #d9d9d9",
+                borderRadius: "5px",
+                padding: "15px",
+                marginBottom: "10px",
+              }}
+            >
+              <Row gutter={{ xs: 24, xl: 8, lg: 8, md: 24 }}>
+                <Col span={24}>
+                  <FormInput
+                    name="email"
+                    label="Email"
+                    size="large"
+                    type="email"
+                    placeholder="Enter your Email"
+                  />
+                </Col>
+                <Col span={24}>
+                  <FormInput
+                    name="oldPassword"
+                    label="Old Password"
+                    size="large"
+                    placeholder="Enter Your Old Password"
+                  />
+                </Col>
+                <Col span={24}>
+                  <FormInput
+                    name="newPassword"
+                    label="New Password"
+                    size="large"
+                    placeholder="Enter Your New Password"
+                  />
+                </Col>
+              </Row>
+            </div>
+
+            <div className="flex  justify-end gap-5">
+              <Button
+                htmlType="submit"
+                type="primary"
+                loading={updateUserLoadings}
+                disabled={updateUserLoadings}
+              >
+                Update User
+              </Button>
+
+              <Button
+                onClick={() => setIsPassEmailEditModalOpen(false)}
+                htmlType="button"
+                type="default"
+              >
+                Cancel
+              </Button>
+            </div>
+          </Form>
+        </ModalForm>
+      )}
+    </>
   );
 };
 

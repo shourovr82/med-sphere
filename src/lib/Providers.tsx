@@ -15,7 +15,7 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
             colorPrimary: "#47177e",
             borderRadius: 8,
             colorText: "#000",
-            fontFamily: "default",
+            fontFamily: "Default",
             colorBgSpotlight: "#47177e",
             // Alias Token
             colorBgContainer: "#fff",

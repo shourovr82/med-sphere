@@ -1,12 +1,13 @@
 "use client";
 
-import { useState } from "react";
 import Form from "@/components/forms/Forms/Form";
 import FormInput from "@/components/forms/Forms/FormInput";
 import FormSelectField from "@/components/forms/Forms/FormSelectField";
 import UMBreadCrumb from "@/components/forms/ui/UMBreadCrumb";
 import UploadImage from "@/components/forms/ui/UploadImage";
 import { Button, Col, Row, message } from "antd";
+import { useRegistrationMutation } from "@/redux/features/auth/authApi";
+import { useRouter } from "next/navigation";
 
 const AddAdminPage = () => {
   const roles = [
@@ -20,32 +21,36 @@ const AddAdminPage = () => {
       value: "SUPER_ADMIN",
     },
   ];
+  const router = useRouter();
+  const [registration, { isLoading, error }] = useRegistrationMutation();
 
-  const adminOnSubmit = async (values: any) => {
-    const obj = { ...values };
-    const file = obj["file"];
-    delete obj["file"];
-    const data = JSON.stringify(obj);
-    const formData = new FormData();
-    formData.append("file", file as Blob);
-    formData.append("data", data);
-    message.loading("Creating...");
+  const adminOnSubmit = async (data: any) => {
+    message.loading(`Creating ${data?.role} `);
+    if (!data?.role) {
+      return message.error("Please Select role");
+    } else if (!data?.profileImage) {
+      return message.error("Please Upload Image");
+    }
+
     try {
-      // const res = await addFacultyWithFormData(formData);
-      // if (!!res) {
-      //   message.success("Faculty created successfully!");
-      // }
+      const res: any = await registration(data);
+      console.log(res);
+      if (res?.data) {
+        message.success(`${data?.role} created successfully!`);
+        router.push("/dashboard/admin-lists");
+      }
     } catch (err: any) {
-      // console.error(err.message);
+      console.log(err);
+      console.error(err?.data?.message);
+      message.error(err?.data?.message);
     }
   };
-
-  const base = "super-admin";
+  console.log(error);
   return (
     <div className="bg-white  p-5 rounded-2xl shadow-lg">
       <UMBreadCrumb
         items={[
-          { label: `${base}`, link: `/dashboard` },
+          { label: `Dashboard`, link: `/dashboard` },
           { label: "add-user", link: `/dashboard/add-admin` },
         ]}
       />
@@ -118,7 +123,7 @@ const AddAdminPage = () => {
               </Col>{" "}
               <Col span={12} style={{ margin: "10px 0" }}>
                 <label htmlFor="image">Profile Image</label>
-                <UploadImage name="file" />
+                <UploadImage name="profileImage" />
               </Col>
             </Row>
           </div>

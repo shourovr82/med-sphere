@@ -23,7 +23,7 @@ const BlogCard = ({ blog }: Props) => {
         className=" max-w-[376px] w-full md:h-[250px] rounded-t-xl "
       />
 
-      <div className="p-[15px] font-poppins">
+      <div className="p-[15px] ">
         <p className="text-[18px]  text-primary">{time}</p>
         <p className="text-[20px] ">{blog.blogTitle}</p>
         <p>
