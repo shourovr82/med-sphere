@@ -28,9 +28,11 @@ import Form from "@/components/forms/Forms/Form";
 import FormInput from "@/components/forms/Forms/FormInput";
 import FormSelectField from "@/components/forms/Forms/FormSelectField";
 import UploadImage from "@/components/forms/ui/UploadImage";
+import { bloodGroup } from "@/constants/common";
+import { getUserInfo } from "@/services/auth.service";
 
 const UserList = () => {
-  const userRole = "SUPER_ADMIN";
+  const { userRole } = getUserInfo() as any;
 
   const superAdminRole = [
     {
@@ -57,41 +59,6 @@ const UserList = () => {
     },
   ];
 
-  const bloodGroup = [
-    {
-      label: "A+",
-      value: "A+",
-    },
-    {
-      label: "A-",
-      value: "A-",
-    },
-    {
-      label: "B+",
-      value: "B+",
-    },
-    {
-      label: "B-",
-      value: "B-",
-    },
-    {
-      label: "O+",
-      value: "O+",
-    },
-    {
-      label: "O-",
-      value: "O-",
-    },
-    {
-      label: "AB+",
-      value: "AB+",
-    },
-    {
-      label: "AB-",
-      value: "AB-",
-    },
-  ];
-
   const query: Record<string, any> = {};
 
   const [page, setPage] = useState<number>(1);
@@ -105,6 +72,7 @@ const UserList = () => {
   query["sortBy"] = sortBy;
   query["sortOrder"] = sortOrder;
   query["searchTerm"] = searchTerm;
+  query["role"] = "USER";
 
   const { data: allUsersResponse, isLoading } = useGetAllUsersQuery(query);
 
@@ -149,30 +117,6 @@ const UserList = () => {
   // handle edit end
 
   // delete
-  const [deleteUser] = useDeleteUserMutation();
-
-  const deleteHandler = async (id: string) => {
-    confirm({
-      title: "Do you Want to delete these items?",
-      icon: <ExclamationCircleFilled />,
-      content: "Please confirm your action!",
-      async onOk() {
-        try {
-          const res: any = await deleteUser(id);
-
-          if (res?.data?.success) {
-            message.success("User Deleted successfully");
-          }
-        } catch (err: any) {
-          console.error(err.data?.message);
-          message.error(err.data?.message);
-        }
-      },
-      onCancel() {
-        console.log("Cancel");
-      },
-    });
-  };
 
   // delete end
 
@@ -262,13 +206,6 @@ const UserList = () => {
               type="primary"
             >
               <EditOutlined />
-            </Button>
-            <Button
-              onClick={() => deleteHandler(data?.userId)}
-              type="primary"
-              danger
-            >
-              <DeleteOutlined />
             </Button>
           </div>
         );

@@ -1,7 +1,9 @@
+import HomePageServiceSection from "@/components/HomePage/homePageService/HomePageServiceSection";
+
 const ServicesPage = () => {
   return (
     <section className="max-w-7xl mx-auto">
-      <h2>Services Page</h2>
+      <HomePageServiceSection />
     </section>
   );
 };
