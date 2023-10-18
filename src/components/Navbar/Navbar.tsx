@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import Image from "next/image";
@@ -6,31 +7,27 @@ import Logo from "@/assets/logo/logo.png";
 import Link from "next/link";
 import { INavbarType } from "@/types/NavbarType";
 import NavbarMenu from "./NavbarMenu";
-import { PhoneTwoTone } from "@ant-design/icons";
-import { AppstoreOutlined } from "@ant-design/icons";
-import { Drawer } from "antd";
+import { MenuOutlined, AppstoreOutlined } from "@ant-design/icons";
 
-import { getUserInfo, isLoggedIn } from "@/services/auth.service";
+import {
+  getUserInfo,
+  isLoggedIn,
+  removeUserInfo,
+} from "@/services/auth.service";
+import { authKey } from "@/constants/common";
+import { useRouter } from "next/navigation";
+import AddToCard from "../cart/AddToCart";
+import { USER_ROLE } from "@/constants/user";
 
 const Navbar = () => {
-  const [open, setOpen] = useState(false);
-
-  const showDrawer = () => {
-    setOpen(true);
-  };
-
-  const onClose = () => {
-    setOpen(false);
-  };
-
   const NavbarData: INavbarType[] = [
     {
       name: "Home",
       link: "/",
     },
     {
-      name: "About",
-      link: "/about",
+      name: "Blogs",
+      link: "/blogs",
     },
     {
       name: "Services",
@@ -46,6 +43,10 @@ const Navbar = () => {
   const userLoggedIn = isLoggedIn();
   const user = getUserInfo() as any;
 
+  const router = useRouter();
+
+  const [isCardOpen, setIsCardOpen] = useState(false);
+
   useEffect(() => {
     if (userLoggedIn) {
       setUserLogged(true);
@@ -54,9 +55,14 @@ const Navbar = () => {
     }
   }, [userLoggedIn]);
 
+  const logOut = () => {
+    removeUserInfo(authKey);
+    router.push("/login");
+  };
+
   return (
     <>
-      <section className="border-b-2 borderColor">
+      <section className="border-b-2 borderColor  max-md:px-3">
         <div className="py-2 max-w-7xl mx-auto  flex gap-3 items-center justify-between w-full ">
           {/* logo */}
           <Link href={"/"} className="md:w-full ">
@@ -72,39 +78,6 @@ const Navbar = () => {
           {/* appointment */}
 
           <div className="flex gap-5 items-center w-full justify-end  ">
-            {/* emergency call */}
-            <div className="hidden md:flex items-center gap-2 cursor-pointer ">
-              <PhoneTwoTone className="text-primary" />
-              <p>Emergency Call</p>
-            </div>
-            {/* button and drawer */}
-            <>
-              {/* <button
-                onClick={showDrawer}
-                className="block md:hidden text-[32px] border rounded-lg "
-              >
-                <AppstoreOutlined />
-              </button>
-
-              <Drawer
-                title="Menu"
-                placement="right"
-                onClose={onClose}
-                open={open}
-                className="text-[20px] text-center"
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  flexDirection: "column",
-                }}
-              >
-                {NavbarData?.map((nav: INavbarType, i: number) => (
-                  <p key={i} className="text-[20px] my-[20px]">
-                    {nav.name}
-                  </p>
-                ))}
-              </Drawer> */}
-            </>
             {/* user */}{" "}
             <div>
               {userLogged ? (
@@ -118,18 +91,12 @@ const Navbar = () => {
                         aria-expanded="true"
                         aria-controls="headlessui-menu-items-117"
                       >
-                        <Image
-                          className="inline-block h-10 w-10 rounded-full ring-2 ring-white"
-                          src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                          alt=""
-                          width={100}
-                          height={100}
-                        />
+                        <MenuOutlined className="text-2xl font-semibold" />
                       </button>
                     </span>
                     <div className="opacity-0 invisible dropdown-menu transition-all duration-300 transform origin-top-right -translate-y-2 scale-95">
                       <div
-                        className="absolute right-0 w-56 mt-2 origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
+                        className="absolute right-0 w-56 mt-2 origin-top-right bg-white  border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
                         aria-labelledby="headlessui-menu-button-1"
                         id="headlessui-menu-items-117"
                         role="menu"
@@ -146,8 +113,17 @@ const Navbar = () => {
                             className="text-gray-700 flex justify-between w-full px-4 py-2 text-sm leading-5 text-left"
                             role="menuitem"
                           >
-                            Profile Settings
+                            My Profile
                           </Link>
+                          {user?.role === USER_ROLE.USER && (
+                            <button
+                              onClick={() => setIsCardOpen(true)}
+                              className="text-gray-700 flex justify-between w-full px-4 py-2 text-sm leading-5 text-left hover:bg-gray-300 hover:text-black rounded "
+                              role="menuitem"
+                            >
+                              My Cart
+                            </button>
+                          )}
                           <Link
                             href="/dashboard"
                             className="text-gray-700 flex justify-between w-full px-4 py-2 text-sm leading-5 text-left"
@@ -155,16 +131,10 @@ const Navbar = () => {
                           >
                             Dashboard
                           </Link>
-                          <span
-                            role="menuitem"
-                            className="flex justify-between w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 cursor-not-allowed opacity-50"
-                            aria-disabled="true"
-                          >
-                            New feature (soon)
-                          </span>
                         </div>
                         <div className="py-1">
                           <button
+                            onClick={logOut}
                             className="text-gray-700 flex justify-between w-full px-4 py-2 text-sm leading-5 text-left"
                             role="menuitem"
                           >
@@ -190,9 +160,9 @@ const Navbar = () => {
                 </Link>
               )}
             </div>
-            {/* {!loggedIn && !user?.email && <Link href={"/login"}>Login</Link>} */}
           </div>
-        </div>
+        </div>{" "}
+        {userLogged && <AddToCard setOpen={setIsCardOpen} open={isCardOpen} />}
       </section>
     </>
   );

@@ -12,6 +12,7 @@
     "@ant-design/cssinjs": "^1.17.0",
     "@cloudinary/react": "^1.11.2",
     "@cloudinary/url-gen": "^1.11.2",
+    "@headlessui/react": "^1.7.17",
     "@reduxjs/toolkit": "^1.9.7",
     "@types/uuid": "^9.0.5",
     "antd": "^5.10.0",

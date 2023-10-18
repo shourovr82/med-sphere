@@ -100,7 +100,10 @@ const Profile = () => {
             </div>
 
             <div>
-              <h2 className="text-2xl font-semibold">Shafin</h2>
+              <h2 className="text-2xl font-semibold">
+                {myProfileResponse?.profile?.firstName}{" "}
+                {myProfileResponse?.profile?.lastName}
+              </h2>
               <p className="font-medium font-mono text-[#9f9fa3]">
                 {myProfileResponse?.email}
               </p>

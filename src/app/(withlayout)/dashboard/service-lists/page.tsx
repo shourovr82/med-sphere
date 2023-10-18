@@ -1,13 +1,20 @@
 "use client";
 
-import { EditOutlined, ReloadOutlined } from "@ant-design/icons";
-import { Button, Col, Input, Row, message } from "antd";
+import {
+  DeleteOutlined,
+  EditOutlined,
+  ReloadOutlined,
+  ExclamationCircleFilled,
+} from "@ant-design/icons";
+import { Button, Col, Input, Modal, Row, message } from "antd";
+const { confirm } = Modal;
 import Link from "next/link";
 import { useState } from "react";
 import dayjs from "dayjs";
 
 import Image from "next/image";
 import {
+  useDeleteServiceMutation,
   useGetAllServicesQuery,
   useUpdateServiceMutation,
 } from "@/redux/features/services/serviceApi";
@@ -75,6 +82,35 @@ const ServiceList = () => {
   };
 
   // handle edit end
+
+  // delete
+  const [deleteService, { isError, error: deleteError }] =
+    useDeleteServiceMutation();
+
+  console.log(deleteError);
+
+  const deleteHandler = async (id: string) => {
+    confirm({
+      title: "Do you Want to delete this  Service?",
+      icon: <ExclamationCircleFilled />,
+      content: "Please confirm your action!",
+      async onOk() {
+        try {
+          const res: any = await deleteService(id);
+          console.log(res);
+          if (res && res?.success) {
+            message.success("Service Deleted successfully");
+          }
+        } catch (err: any) {
+          console.error(err.data?.message);
+          message.error(err.data?.message || "Something went wrong!");
+        }
+      },
+      onCancel() {
+        console.log("Cancel");
+      },
+    });
+  };
 
   const columns = [
     {
@@ -150,6 +186,13 @@ const ServiceList = () => {
               type="primary"
             >
               <EditOutlined />
+            </Button>
+            <Button
+              onClick={() => deleteHandler(data?.serviceId)}
+              type="primary"
+              danger
+            >
+              <DeleteOutlined />
             </Button>
           </div>
         );

@@ -4,7 +4,10 @@ import HealthCare from "@/components/HomePage/HealthCare";
 import HeroSection from "@/components/HomePage/HeroSection";
 import HighlightSection from "@/components/HomePage/HighlightSection";
 import HomepageAboutSection from "@/components/HomePage/HomepageAboutSection";
+import AboutOurStories from "@/components/HomePage/Stories/AboutOurStories";
+import ClientsReview from "@/components/HomePage/clients-review/ClientsReview";
 import Faqs from "@/components/HomePage/faqs/Faqs";
+
 import HomePageServiceSection from "@/components/HomePage/homePageService/HomePageServiceSection";
 
 import { Metadata } from "next";
@@ -37,10 +40,16 @@ export default function Home() {
           <HealthCare />
         </div>
         <div className="max-w-7xl mx-auto">
-          <Faqs />
+          <ClientsReview />
         </div>
         <div className="max-w-7xl mx-auto">
           <BlogPage />
+        </div>
+        <div className="max-w-7xl mx-auto">
+          <AboutOurStories />
+          <div className="max-w-7xl mx-auto">
+            <Faqs />
+          </div>
         </div>
       </section>
     </>

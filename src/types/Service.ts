@@ -1,7 +1,8 @@
 export type IServiceTypes = {
+  serviceId: string;
   serviceName: string;
   description: string;
-  serviceImage: string | any;
+  serviceImage: string;
   servicePrice: number;
   location: string;
   serviceStatus: string;

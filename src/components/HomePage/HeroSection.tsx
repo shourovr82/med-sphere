@@ -17,7 +17,7 @@ const HeroSection = () => {
   ];
 
   return (
-    <div className=" h-[740px] md:flex items-center ">
+    <div className=" h-[720px] md:flex items-center justify-between ">
       {/* welcome */}
       <div className="font-inter my-[20px] md:my-0 flex flex-col h-[400px] justify-around">
         <p className="text-[#9c01fe] md:text-[20px] text-[16px] font-semibold">
@@ -43,16 +43,6 @@ const HeroSection = () => {
       </div>
 
       {/* image */}
-
-      <div className="hidden md:block">
-        <Image
-          src={DoctorImage}
-          alt=""
-          width={500}
-          height={600}
-          className="md:mt-[90px] md:w-[550px] md:h-[650px]"
-        />
-      </div>
 
       {/* card */}
       <div className="flex flex-col gap-5">

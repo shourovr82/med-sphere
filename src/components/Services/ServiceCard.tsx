@@ -1,5 +1,12 @@
+/* eslint-disable no-extra-boolean-cast */
+"use client";
+
+import { addToCart } from "@/redux/features/slice/cart/cartSlice";
+import { useAppDispatch } from "@/redux/hooks";
 import { IServiceTypes } from "@/types/Service";
+import { Button } from "antd";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 type ServiceCardProps = {
@@ -7,52 +14,58 @@ type ServiceCardProps = {
 };
 
 const ServiceCard = ({ service }: ServiceCardProps) => {
+  const dispatch = useAppDispatch();
+
+  const handleAddToCart = (addedService: IServiceTypes) => {
+    dispatch(addToCart(addedService));
+  };
+
   return (
-    <div className="bg-blue-50/75 border rounded-xl p-[30px] flex flex-col gap-3 font-inter hover:border-primary ease-in duration-100 delay-75 shadow ">
-      <Image
-        alt={service.serviceName}
-        src={service.serviceImage}
-        height={80}
-        width={80}
-        className="bg-white rounded-full"
-      />
-
-      <div className="flex justify-between gap-1 items-center">
-        <p className="text-[22px] font-semibold text-gray-700">
-          {service.serviceName}
-        </p>
-
-        <p className="bg-[#6d74dd] rounded-full p-1 text-[12px] text-white">
-          {service.serviceStatus}
-        </p>
+    <div className=" p-5 bg-white rounded-2xl hover:border-primary hover:border delay-75 border border-transparent duration-300 transition-all ease-in shadow-lg">
+      <div className="border rounded-xl ">
+        <Image
+          alt={service?.serviceName}
+          src={service?.serviceImage}
+          height={80}
+          width={80}
+          className="w-full h-[300px] object-contain  "
+        />
       </div>
 
-      <p className="text-gray-500 font-roboto">
-        {service.description.length > 50
-          ? service.description.slice(0, 50) + "..."
-          : service.description}
-      </p>
-
-      <div className="flex items-center justify-between">
-        <p className="text-[18px] font-inter font-semibold">
-          ${service.servicePrice}
+      <div className="px-4  py-2">
+        <div className="flex justify-between items-center">
+          <h1 className="text-lg font-bold text-gray-800 uppercase ">
+            {service?.serviceName}
+          </h1>{" "}
+        </div>
+        <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+          description : {service?.description}
         </p>
-        <p className="bg-[#7f85e2] text-white p-1 rounded-full text-[12px]">
-          {service.category?.categoryName}
+        <p className="mt-2 text-xs  text-gray-600 dark:text-gray-400">
+          location : {service?.location}
         </p>
       </div>
-
-      <p className="text-[12px]">{service.location}</p>
-
-      {/* add to card */}
-
-      <div className="flex items-center gap-3">
-        <button className="bg-primary text-white px-3 py-1 rounded-full text-[12px]">
-          Add to cart
-        </button>
-        <button className="bg-white text-primary px-3 py-1 rounded-full text-[12px] border border-primary">
-          View details
-        </button>
+      <div className="flex items-center justify-between px-4 py-2 border-t">
+        <h1 className="text-lg font-bold text-black">
+          ${service?.servicePrice}
+        </h1>
+        <div className="flex gap-3">
+          <Link href={`/services/${service?.serviceId}`}>
+            <Button
+              className="px-2 py-1 text-xs font-semibold text-gray-900 uppercase transition-colors duration-300 transform bg-white rounded hover:bg-gray-200 focus:bg-gray-400 focus:outline-none"
+              type="primary"
+            >
+              View
+            </Button>
+          </Link>
+          <Button
+            onClick={() => handleAddToCart(service)}
+            type="primary"
+            className="px-2 py-1 text-xs font-semibold text-gray-900 uppercase transition-colors duration-300 transform bg-white rounded hover:bg-gray-200 focus:bg-gray-400 focus:outline-none"
+          >
+            Add to cart
+          </Button>
+        </div>
       </div>
     </div>
   );

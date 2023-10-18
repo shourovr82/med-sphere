@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { authKey } from "@/constants/common";
 import { IGenericErrorResponse, ResponseSuccessType } from "@/types/common";
 import { getFromLocalStorage, setToLocalStorage } from "@/utils/local-storage";
@@ -36,6 +37,7 @@ instance.interceptors.response.use(
   },
   async function (error) {
     if (error?.response?.status === 403) {
+      //
     } else {
       const responseObject: IGenericErrorResponse = {
         statusCode: error?.response?.data?.statusCode || 500,
@@ -45,7 +47,7 @@ instance.interceptors.response.use(
       return responseObject;
     }
 
-    // return Promise.reject(error);
+    return Promise.reject(error);
   }
 );
 
