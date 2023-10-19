@@ -16,14 +16,14 @@ const AddCategoryPage = () => {
   // submit
   const router = useRouter();
   const blogOnSubmit = async (data: any) => {
-    message.loading("Creating new Faq");
+    message.loading("Creating new Category");
     const categoryData = {
       categoryName: data.categoryName,
       description: data.description,
     };
     try {
       const res = await createCategory(categoryData);
-      console.log(res);
+
       // @ts-ignore
       if (res?.data && !isError) {
         message.success("Category created successfully");
@@ -45,7 +45,9 @@ const AddCategoryPage = () => {
       />
       <div className="mt-3">
         <div className="mb-3">
-          <h1 className="text-lg text-black/70 font-bold">Create New Blog</h1>
+          <h1 className="text-lg text-black/70 font-bold">
+            Create New Category
+          </h1>
         </div>
         <Form submitHandler={blogOnSubmit}>
           {/* faculty information */}

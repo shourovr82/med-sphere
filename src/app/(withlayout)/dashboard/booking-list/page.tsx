@@ -201,7 +201,7 @@ const BookingList = () => {
   };
 
   return (
-    <div className="my-10">
+    <div className="p-5 bg-white rounded-3xl">
       <UMBreadCrumb
         items={[
           {

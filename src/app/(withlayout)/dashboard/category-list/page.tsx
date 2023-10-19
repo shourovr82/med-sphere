@@ -135,6 +135,8 @@ const CategoryList = () => {
   };
 
   const resetFilters = () => {
+    setPage(1);
+    setSize(10);
     setSortBy("");
     setSortOrder("");
     setSearchTerm("");

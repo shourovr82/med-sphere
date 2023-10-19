@@ -15,8 +15,9 @@ import { useRouter } from "next/navigation";
 
 const AddServicePage = () => {
   const [createService, { isLoading, isError }] = useCreateServiceMutation();
+  const query = { limit: 30 };
 
-  const { data: allCategories } = useGetAllCategoriesQuery(undefined);
+  const { data: allCategories } = useGetAllCategoriesQuery(query);
 
   const router = useRouter();
 
@@ -76,15 +77,15 @@ const AddServicePage = () => {
               Service information
             </p>
             <Row gutter={{ xs: 24, xl: 8, lg: 8, md: 24 }}>
-              <Col span={3} style={{ margin: "10px 0" }}>
+              <Col span={3}>
                 <p className="pb-2">Service Image</p>
                 <UploadImage name="serviceImage" />
               </Col>{" "}
             </Row>
 
             <Row gutter={{ xs: 24, xl: 24, lg: 24, md: 24 }}>
-              <Col span={12} style={{ margin: "10px 0" }}>
-                <div style={{ margin: "10px 0px" }}>
+              <Col span={12}>
+                <div>
                   <FormInput
                     size="large"
                     name="serviceName"
@@ -92,20 +93,25 @@ const AddServicePage = () => {
                   />
                 </div>
               </Col>
-              <Col span={12} style={{ margin: "10px 0" }}>
-                <div style={{ margin: "10px 0px" }}>
-                  <FormInput size="large" name="servicePrice" label="Price" />
+              <Col span={12}>
+                <div>
+                  <FormInput
+                    size="large"
+                    name="servicePrice"
+                    type="number"
+                    label="Price"
+                  />
                 </div>
               </Col>
             </Row>
             <Row gutter={{ xs: 24, xl: 12, lg: 12, md: 24 }}>
-              <Col span={8} style={{ margin: "10px 0" }}>
+              <Col span={8}>
                 <div>
                   <FormInput size="large" name="location" label="Location" />
                 </div>
               </Col>
-              <Col span={8} style={{ margin: "10px 0" }}>
-                <div style={{ margin: "10px 0px" }}>
+              <Col span={8}>
+                <div>
                   <FormSelectField
                     name="categoryId"
                     label="Category"
@@ -116,8 +122,8 @@ const AddServicePage = () => {
                   />
                 </div>
               </Col>
-              <Col span={8} style={{ margin: "10px 0" }}>
-                <div style={{ margin: "10px 0px" }}>
+              <Col span={8}>
+                <div>
                   <FormSelectField
                     name="serviceStatus"
                     label="Service Status"
@@ -127,8 +133,8 @@ const AddServicePage = () => {
               </Col>
             </Row>
             <Row gutter={{ xs: 24, xl: 12, lg: 12, md: 24 }}>
-              <Col span={24} style={{ margin: "10px 0" }}>
-                <div style={{ margin: "10px 0px" }}>
+              <Col span={24}>
+                <div>
                   <FormTextArea
                     name="description"
                     label="Service Description"

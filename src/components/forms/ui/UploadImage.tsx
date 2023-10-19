@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import React, { useState } from "react";
@@ -108,7 +109,7 @@ const UploadImage = ({ name, defaultImage }: ImageUploadProps) => {
         {progress > 0 ? <Progress percent={progress} /> : null}
       </div>
       <Modal open={previewOpen} footer={null} onCancel={handleCancel} centered>
-        <Image alt="example" style={{ width: "100%" }} src={previewImage} />
+        <img alt="example" style={{ width: "100%" }} src={previewImage} />
       </Modal>
     </>
   );

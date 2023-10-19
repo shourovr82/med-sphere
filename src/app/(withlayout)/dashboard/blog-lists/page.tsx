@@ -224,7 +224,7 @@ const BlogLists = () => {
               }}
             />
             <div>
-              <Link href="/admin/course/create">
+              <Link href="/dashboard/add-blog">
                 <Button type="primary">Create</Button>
               </Link>
               {(!!sortBy || !!sortOrder || !!searchTerm) && (

@@ -47,8 +47,10 @@ const ServiceList = () => {
   // get data
   const { data, isLoading } = useGetAllServicesQuery({ ...query });
   // handle edit
+  const queries = { limit: 20 };
+
   const { data: allCategories, isLoading: isCategoryLoading } =
-    useGetAllCategoriesQuery(undefined);
+    useGetAllCategoriesQuery(queries);
 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editData, setEditData] = useState<any>(null);
@@ -86,8 +88,6 @@ const ServiceList = () => {
   // delete
   const [deleteService, { isError, error: deleteError }] =
     useDeleteServiceMutation();
-
-  console.log(deleteError);
 
   const deleteHandler = async (id: string) => {
     confirm({
@@ -135,11 +135,7 @@ const ServiceList = () => {
       dataIndex: "serviceName",
       //   sorter: true,
     },
-    {
-      title: "Description",
-      dataIndex: "description",
-      //   sorter: true,
-    },
+
     {
       title: "Price",
       dataIndex: "servicePrice",
@@ -249,7 +245,7 @@ const ServiceList = () => {
               }}
             />
             <div>
-              <Link href="/dashboard/service/add-service">
+              <Link href="/dashboard/add-service">
                 <Button type="primary">Create</Button>
               </Link>
               {(!!sortBy || !!sortOrder || !!searchTerm) && (
@@ -265,7 +261,7 @@ const ServiceList = () => {
           </ActionBar>
         </div>
         <TableList
-          // loading={isLoading}
+          loading={isLoading}
           columns={columns}
           dataSource={data}
           pageSize={size}

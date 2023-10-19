@@ -75,7 +75,7 @@ export const sidebarItems = (role: string) => {
     {
       label: "Category Management",
       key: "category-management",
-      icon: <CustomerServiceOutlined />,
+      icon: <DiffOutlined />,
       children: [
         {
           label: <Link href={`/dashboard/add-category`}>Add Category</Link>,

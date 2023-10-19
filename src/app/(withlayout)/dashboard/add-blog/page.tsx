@@ -15,7 +15,7 @@ const AddBlogPage = () => {
   // submit
   const router = useRouter();
   const blogOnSubmit = async (data: any) => {
-    message.loading("Creating new Faq");
+    message.loading("Creating new Blog");
     const bloData = {
       blogTitle: data.blogTitle,
       blogDescription: data.blogDescription,
@@ -23,7 +23,7 @@ const AddBlogPage = () => {
     };
     try {
       const res = await createBlog(bloData);
-      console.log(res);
+
       // @ts-ignore
       if (res?.data && !isError) {
         message.success("Blog created successfully");

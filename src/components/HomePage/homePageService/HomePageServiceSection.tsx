@@ -2,7 +2,8 @@
 
 import ServiceCard from "@/components/Services/ServiceCard";
 import { useGetAllServicesQuery } from "@/redux/features/services/serviceApi";
-import { Alert, Spin } from "antd";
+import { Alert, Button, Spin } from "antd";
+import Link from "next/link";
 import { useState } from "react";
 const HomePageServiceSection = () => {
   const query: Record<string, any> = {};
@@ -41,6 +42,11 @@ const HomePageServiceSection = () => {
           ))}
         </div>
       </Spin>
+      <div className="flex mt-5 justify-end">
+        <Link href="/services">
+          <Button type="primary">View All Services</Button>
+        </Link>
+      </div>
     </div>
   );
 };

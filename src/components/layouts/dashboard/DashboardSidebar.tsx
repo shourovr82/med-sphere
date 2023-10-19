@@ -40,7 +40,7 @@ const DashboardSidebar: React.FC = () => {
         }}
       >
         <div className="m-5 flex flex-col justify-center items-center">
-          <Link href="/">
+          <Link href="/dashboard">
             <Image src={logo} className="!w-40 object-contain" alt="" />
           </Link>
         </div>

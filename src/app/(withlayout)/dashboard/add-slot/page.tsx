@@ -22,7 +22,6 @@ const AddBooking = () => {
       slotTime: time,
     };
 
-    console.log(SlotData);
     try {
       const res: any = await createSlot(SlotData);
       console.log(res);
@@ -68,7 +67,7 @@ const AddBooking = () => {
           </Col>
         </Row>
         <Button type="primary" htmlType="submit">
-          Create Booking
+          Create Slot
         </Button>
       </Form>
     </div>
