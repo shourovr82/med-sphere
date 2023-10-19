@@ -30,11 +30,8 @@ const HomePageServiceSection = () => {
 
   return (
     <div className=" pb-[100px]">
-      <p className="text-primary md:text-[20px] text-[16px] font-semibold">
+      <p className="text-primary my-10 text-center md:text-[20px] text-[16px] font-semibold">
         OUR AVAILABLE SERVICES
-      </p>
-      <p className=" md:text-[45px] text-[35px] md:w-[550px] py-[30px] ">
-        Amazing Medical Facilities Just for You
       </p>
 
       {/* service card */}

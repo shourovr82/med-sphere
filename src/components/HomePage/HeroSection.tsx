@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const HeroSection = () => {
   return (
-    <div className=" px-6 py-16 min-h-screen mx-auto">
+    <div className=" px-6 py-16 min-h-[740px] mx-auto">
       <div className="items-center lg:flex">
         <div className="w-full lg:w-1/2">
           <div className="lg:max-w-lg">

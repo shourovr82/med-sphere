@@ -1,3 +1,4 @@
+/* eslint-disable no-extra-boolean-cast */
 "use client";
 
 import { ReactElement, ReactNode, useEffect } from "react";
@@ -29,7 +30,7 @@ const Form = ({
 
   const onSubmit = (data: any) => {
     submitHandler(data);
-    // reset();
+    reset();
   };
 
   useEffect(() => reset(defaultValues), [defaultValues, reset, methods]);

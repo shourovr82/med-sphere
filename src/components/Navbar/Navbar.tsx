@@ -33,10 +33,6 @@ const Navbar = () => {
       name: "Services",
       link: "/services",
     },
-    {
-      name: "Contact",
-      link: "/contact",
-    },
   ];
   const [userLogged, setUserLogged] = useState(false);
 
@@ -69,7 +65,7 @@ const Navbar = () => {
             <Image src={Logo} alt="" className="w-20 " />
           </Link>
           {/* NavData */}
-          <div className="md:flex hidden gap-3 w-full justify-between ">
+          <div className="md:flex hidden gap-10 w-full justify-center  ">
             {NavbarData?.map((nav: INavbarType, i: number) => (
               <NavbarMenu key={i} navbarData={nav} />
             ))}

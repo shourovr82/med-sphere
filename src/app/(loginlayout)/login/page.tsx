@@ -56,6 +56,7 @@ const LoginPage = () => {
                   name="password"
                   label="Password"
                   size="large"
+                  type="password"
                   placeholder="Enter Your  Password"
                 />
               </Col>
