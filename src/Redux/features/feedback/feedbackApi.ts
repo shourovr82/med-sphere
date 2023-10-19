@@ -17,7 +17,7 @@ const feedBackApi = baseApi.injectEndpoints({
       query: (data) => ({
         url: `${FEEDBACK_API}/add-feedback`,
         method: "POST",
-        data: data,
+        data,
       }),
       invalidatesTags: [tagTypes.feedback],
     }),

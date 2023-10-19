@@ -2,13 +2,15 @@
 
 import Contents from "@/components/layouts/dashboard/Contents";
 import DashboardSidebar from "@/components/layouts/dashboard/DashboardSidebar";
-import { isLoggedIn } from "@/services/auth.service";
+import { USER_ROLE } from "@/constants/user";
+import { getUserInfo, isLoggedIn } from "@/services/auth.service";
 import { Layout, Row, Space, Spin } from "antd";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const userLoggedIn = isLoggedIn();
+
   const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -17,7 +19,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
       router.push("/login");
     }
     setIsLoading(true);
-  }, [router, isLoading]);
+  }, [router, isLoading, userLoggedIn]);
 
   if (!isLoading) {
     return (

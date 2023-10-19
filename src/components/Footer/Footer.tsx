@@ -122,7 +122,13 @@ const Footer = () => {
         <div className=" max-w-7xl  mx-auto">
           <div className=" py-6 mx-auto flex items-center sm:flex-row flex-col">
             <a className="flex title-font font-medium items-center md:justify-start justify-center">
-              <Image src={Logo} className="w-20" alt="" />
+              <Image
+                width={20}
+                height={20}
+                src={Logo}
+                className="w-20"
+                alt=""
+              />
               <span className="ml-3 text-xl">MED SPHERE</span>
             </a>
             <p className="text-sm text-gray-100 sm:ml-6 sm:mt-0 mt-4">

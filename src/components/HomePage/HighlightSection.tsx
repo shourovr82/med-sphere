@@ -27,7 +27,7 @@ const HighlightSection = () => {
   ];
 
   return (
-    <section className=" bg-[#47177e]  py-[50px] text-white font-inter ">
+    <section className=" bg-[#47177e] max-md:px-2  py-[50px] text-white font-inter ">
       <div className="  max-w-7xl  mx-auto flex flex-col md:flex-row md:gap-3 gap-10  justify-between">
         {BannerData.map((data, i) => (
           <div className="flex items-center gap-4 " key={i}>

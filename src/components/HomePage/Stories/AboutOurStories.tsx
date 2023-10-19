@@ -1,6 +1,6 @@
 const AboutOurStories = () => {
   return (
-    <div className="mb-10">
+    <div className="mb-10 max-md:px-3">
       <section className="py-10 rounded-3xl  shadow-lg sm:py-16 lg:py-24">
         <div className=" ">
           <div className="max-w-5xl mx-auto text-center">

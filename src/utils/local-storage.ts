@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 export const setToLocalStorage = (key: string, token: string) => {
   if (!key || typeof window === "undefined") {
     return "";

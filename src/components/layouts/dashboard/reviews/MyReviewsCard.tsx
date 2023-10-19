@@ -1,3 +1,5 @@
+"use client";
+
 /* eslint-disable @next/next/no-img-element */
 import { Dropdown, MenuProps, Rate } from "antd";
 import React from "react";
@@ -25,6 +27,8 @@ const items: MenuProps["items"] = [
 ];
 
 const MyReviewsCard = ({ review }: any) => {
+  console.log(review);
+
   return (
     <div className="bg-white  w-full  flex-shrink-0 shadow-xl rounded-2xl border">
       <div className="flex items-center justify-between py-4 px-2 bg-gray-200 rounded-t-2xl  bg-opacity-50 ">

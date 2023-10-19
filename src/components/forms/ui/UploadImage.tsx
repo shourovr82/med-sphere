@@ -6,6 +6,7 @@ import axios, { AxiosResponse } from "axios";
 import { useFormContext } from "react-hook-form";
 import { PlusOutlined } from "@ant-design/icons";
 import { RcFile, UploadFile } from "antd/es/upload";
+import Image from "next/image";
 
 type ImageUploadProps = {
   name: string;
@@ -107,7 +108,7 @@ const UploadImage = ({ name, defaultImage }: ImageUploadProps) => {
         {progress > 0 ? <Progress percent={progress} /> : null}
       </div>
       <Modal open={previewOpen} footer={null} onCancel={handleCancel} centered>
-        <img alt="example" style={{ width: "100%" }} src={previewImage} />
+        <Image alt="example" style={{ width: "100%" }} src={previewImage} />
       </Modal>
     </>
   );

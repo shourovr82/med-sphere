@@ -12,7 +12,7 @@ const getItems: (
   data: any
 ) => CollapseProps["items"] = (panelStyle, data) => {
   // Use the data from the Redux query to generate items
-  return data.map((item: any) => ({
+  return data?.map((item: any) => ({
     key: item?.faqId,
     label: item?.faqTitle,
     children: <p>{item?.faqDescription}</p>,

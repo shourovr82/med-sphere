@@ -14,7 +14,7 @@ import { getUserInfo } from "@/services/auth.service";
 const { Sider } = Layout;
 
 const DashboardSidebar: React.FC = () => {
-  const [collapsed, setCollapsed] = useState(true);
+  const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -41,7 +41,7 @@ const DashboardSidebar: React.FC = () => {
       >
         <div className="m-5 flex flex-col justify-center items-center">
           <Link href="/">
-            <Image src={logo} className="w-40" alt="" />
+            <Image src={logo} className="!w-40 object-contain" alt="" />
           </Link>
         </div>
         <Menu

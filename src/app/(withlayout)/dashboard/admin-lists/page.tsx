@@ -54,6 +54,7 @@ const AdminLists = () => {
   query["sortBy"] = sortBy;
   query["sortOrder"] = sortOrder;
   query["searchTerm"] = searchTerm;
+  query["role"] = "ADMIN";
 
   // handle edit
 

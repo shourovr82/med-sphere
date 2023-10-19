@@ -4,7 +4,7 @@ import React, { useState } from "react";
 
 import { useRouter } from "next/navigation";
 
-import { Modal, message } from "antd";
+import { Button, Modal, message } from "antd";
 const { confirm } = Modal;
 import { ExclamationCircleFilled } from "@ant-design/icons";
 import { isLoggedIn } from "@/services/auth.service";
@@ -73,17 +73,9 @@ const Appointment = () => {
   };
 
   return (
-    <div className="common md:flex gap-10 items-center mb-[60px]">
-      <Image
-        src="https://askproject.net/meddic/wp-content/uploads/sites/156/2023/10/team-of-doctors-discussing-something-at-hospital-c-FHAY6CS.jpg"
-        alt="Picture of the author"
-        width={500}
-        height={500}
-        className="rounded-xl md:w-[550px] md:h-[660px] border-2 "
-      />
-
+    <div className="max-md:px-2 shadow-2xl p-5   rounded-2xl md:flex gap-10 items-center mb-[60px]">
       {/* FAQS */}
-      <div className="font-inter my-[20px] md:my-0 flex flex-col md:h-[400px] justify-around ">
+      <div className="font-inter my-[20px] w-full md:my-0 flex flex-col md:h-[400px] justify-around ">
         <p className="text-primary md:text-[20px] text-[16px] font-semibold">
           APPOINTMENT
         </p>
@@ -91,18 +83,18 @@ const Appointment = () => {
           Book Your Appointment
         </p>
         <p className="md:w-[500px] text-gray-[400px] font-poppins text-gray-500">
-          The benefits of MEDDPICC are that it allows sellers to quickly qualify
-          or disqualify opportunities.
+          The benefits of MED SPHERE are that it allows sellers to quickly
+          qualify or disqualify opportunities.
         </p>
 
         {/* apoinment form */}
 
         <Form submitHandler={bookingOnSubmit}>
-          <div className="my-[12px] flex flex-col items-center justify-center gap-2 w-full">
-            <div style={{ margin: "10px 0px", width: "100%" }}>
+          <div className="my-[12px] grid grid-cols-2 md:grid-cols-7 items-end gap-2 w-full">
+            <div className="col-span-2">
               <FormDatePicker name="appointmentDate" label="Appointment Date" />
             </div>
-            <div style={{ margin: "10px 0px", width: "100%" }}>
+            <div className="col-span-2">
               <FormSelectField
                 name="slot.slotId"
                 label="Booking Slot"
@@ -112,7 +104,7 @@ const Appointment = () => {
                 }))}
               />
             </div>
-            <div style={{ margin: "10px 0px", width: "100%" }}>
+            <div className="md:col-span-2">
               <FormSelectField
                 name="service.serviceId"
                 label="Service Name"
@@ -122,11 +114,17 @@ const Appointment = () => {
                 }))}
               />
             </div>
+            <div className="col-span-1">
+              <Button
+                size="large"
+                type="primary"
+                htmlType="submit"
+                className="appointmentButton"
+              >
+                Make Appointment
+              </Button>
+            </div>
           </div>
-
-          <button type="submit" className="appointmentButton">
-            Make Appointment
-          </button>
         </Form>
       </div>
     </div>

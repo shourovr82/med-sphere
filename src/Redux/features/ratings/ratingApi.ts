@@ -1,38 +1,58 @@
 import { baseApi } from "@/redux/api/baseApi";
 import { tagTypes } from "@/redux/tag-types";
+const REVIEWS_API = "/review-ratings";
 
-const RatingApi = baseApi.injectEndpoints({
+const ratingApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    createRating: builder.mutation({
-      query: (body) => ({
-        url: `/review-ratings/add-review`,
-        method: "POST",
-        data: body,
-      }),
-      invalidatesTags: [tagTypes.service],
-    }),
-    // get my reviews
-    getMyReviews: builder.query({
+    getReviews: builder.query({
       query: () => ({
-        url: `/review-ratings/my-reviews`,
+        url: `${REVIEWS_API}`,
         method: "GET",
       }),
-      providesTags: [tagTypes.service],
-      transformResponse: (response: any) => response.data,
+      providesTags: [tagTypes.reviews],
     }),
-    // delete reviews
+    getMyReviews: builder.query({
+      query: () => ({
+        url: `${REVIEWS_API}/get-my-reviews`,
+        method: "GET",
+      }),
+      providesTags: [tagTypes.reviews],
+    }),
+
+    // create Review
+    createReview: builder.mutation({
+      query: (data) => ({
+        url: `${REVIEWS_API}/add-review`,
+        method: "POST",
+        data: data,
+      }),
+      invalidatesTags: [tagTypes.reviews, tagTypes.service],
+    }),
+    // update Review
+    updateReview: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `${REVIEWS_API}/${id}`,
+        method: "PATCH",
+        data: data,
+      }),
+      invalidatesTags: [tagTypes.reviews],
+    }),
+
+    // delete Review
     deleteReview: builder.mutation({
       query: (id) => ({
-        url: `/review-ratings/${id}`,
+        url: `/${REVIEWS_API}/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: [tagTypes.service],
+      invalidatesTags: [tagTypes.reviews],
     }),
   }),
 });
 
 export const {
-  useCreateRatingMutation,
+  useGetReviewsQuery,
   useGetMyReviewsQuery,
+  useCreateReviewMutation,
+  useUpdateReviewMutation,
   useDeleteReviewMutation,
-} = RatingApi;
+} = ratingApi;

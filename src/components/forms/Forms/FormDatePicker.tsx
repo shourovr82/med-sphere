@@ -25,8 +25,8 @@ const FormDatePicker = ({
 
   return (
     <div>
-      {label ? label : null}
-      <br />
+      <p className="py-2">{label ? label : null}</p>
+
       <Controller
         name={name}
         control={control}

@@ -26,10 +26,8 @@ const HomePageServiceSection = () => {
     error,
   } = useGetAllServicesQuery({ ...query });
 
-  console.log(error);
-
   return (
-    <div className=" pb-[100px]">
+    <div className=" pb-[100px] max-md:px-2">
       <p className="text-primary my-10 text-center md:text-[20px] text-[16px] font-semibold">
         OUR AVAILABLE SERVICES
       </p>

@@ -20,29 +20,19 @@ export type IGenericErrorMessage = {
   message: string;
 };
 
-export interface IDepartment {
-  id: string;
-  title: string;
-  createdAt: string;
-  updatedAt: string;
-  __v: number;
-}
-
-// export interface IStudent {
-//   id: string;
-//   name: Name & { id: string };
-//   dateOfBirth: string;
-//   gender: string;
-//   bloodGroup: string;
-//   email: string;
-//   contactNo: string;
-//   emergencyContactNo: string;
-//   presentAddress: string;
-//   permanentAddress: string;
-//   guardian: Guardian & { id: string };
-//   localGuardian: LocalGuardian & { id: string };
-//   department: string;
-//   subject: string;
-//   createdAt: string;
-//   updatedAt: string;
-// }
+export type IReview = {
+  reviewId: string;
+  reviewComment: string;
+  reviewRating: string;
+  createdAt?: string;
+  service?: {
+    serviceName: string;
+    serviceId: string;
+  };
+  profile?: {
+    firstName: string;
+    lastName: string;
+    profileId: string;
+    profileImage: string;
+  };
+};

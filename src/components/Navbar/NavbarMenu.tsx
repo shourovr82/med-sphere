@@ -3,7 +3,6 @@ import Link from "next/link";
 import React from "react";
 import { Dropdown } from "antd";
 import type { MenuProps } from "antd";
-import { ArrowDownOutlined } from "@ant-design/icons";
 
 type NavbarMenuProps = {
   navbarData: INavbarType;
@@ -11,7 +10,7 @@ type NavbarMenuProps = {
 };
 
 const NavbarMenu = ({ navbarData, customClass }: NavbarMenuProps) => {
-  let items: MenuProps["items"] = [];
+  const items: MenuProps["items"] = [];
 
   if (navbarData.isSubMenu && navbarData.subMenu) {
     navbarData.subMenu.map((item, i) => {

@@ -6,11 +6,12 @@ import { useGetBlogsQuery } from "@/redux/features/blogs/blogApi";
 import { IBlogType } from "@/types/BlogType";
 
 import BlogCard from "@/components/HomePage/BlogPage/blogCard";
+import { Spin } from "antd";
 
 const Blogs = () => {
   const query: Record<string, any> = {};
   query["limit"] = 100;
-  const { data } = useGetBlogsQuery(query);
+  const { data, isLoading } = useGetBlogsQuery(query);
 
   return (
     <div className="my-10 max-w-7xl mx-auto ">
@@ -23,6 +24,9 @@ const Blogs = () => {
         </div>
       </div>
       {/* blogs */}
+      <div className="flex justify-center">
+        <Spin tip="Loading" spinning={isLoading}></Spin>
+      </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5 ">
         {data?.map((blog: IBlogType) => (
           <BlogCard key={blog?.blogId} blog={blog} />

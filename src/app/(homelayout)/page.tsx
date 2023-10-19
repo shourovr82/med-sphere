@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import AppointmentSection from "@/components/HomePage/Appointment/AppointmentSection";
 import BlogPage from "@/components/HomePage/BlogPage/BlogPage";
 import HeroSection from "@/components/HomePage/HeroSection";
@@ -134,6 +135,77 @@ export default function Home() {
 
                     <span className="mx-2">Get it on Google Play</span>
                   </a>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <div>
+          <h2 className="text-center py-4 text-4xl font-semibold">
+            Testimonial
+          </h2>
+        </div>
+        <div className="border max-w-7xl mx-auto">
+          <section className="text-gray-600 body-font">
+            <div className=" px-5 py-10 mx-auto">
+              <div className="flex flex-wrap -m-4">
+                <div className="lg:w-1/3 lg:mb-0 mb-6 p-4">
+                  <div className="h-full text-center">
+                    <p className="leading-relaxed">
+                      I cant thank Med Sphere enough for the invaluable
+                      healthcare information they provide. As someone who is
+                      always been health-conscious, I rely on Med Sphere
+                      articles and resources to make informed decisions about my
+                      well-being. The content is not only well-researched but
+                      also easy to understand, which makes it a go-to resource
+                      for anyone seeking to improve their health. Med Sphere has
+                      truly become my trusted partner on my health journey
+                    </p>
+                    <span className="inline-block h-1 w-10 rounded bg-indigo-500 mt-6 mb-4"></span>
+                    <h2 className="text-gray-900 font-medium title-font tracking-wider text-sm">
+                      Sarah T.
+                    </h2>
+                    <p className="text-gray-500"> Med Sphere User</p>
+                  </div>
+                </div>
+                <div className="lg:w-1/3 lg:mb-0 mb-6 p-4">
+                  <div className="h-full text-center">
+                    <p className="leading-relaxed">
+                      Med Sphere is a game-changer in the healthcare information
+                      landscape. As a healthcare professional, I greatly
+                      appreciate the depth and accuracy of their articles. It is
+                      an incredible resource not only for my personal knowledge
+                      but also for sharing with my patients. Med Sphere has
+                      consistently delivered high-quality, up-to-date
+                      information thats truly beneficial in my practice. Thank
+                      you for being an essential part of my work
+                    </p>
+                    <span className="inline-block h-1 w-10 rounded bg-indigo-500 mt-6 mb-4"></span>
+                    <h2 className="text-gray-900 font-medium title-font tracking-wider text-sm">
+                      Dr. Michael R.
+                    </h2>
+                    <p className="text-gray-500">Healthcare Provider</p>
+                  </div>
+                </div>
+                <div className="lg:w-1/3 lg:mb-0 p-4">
+                  <div className="h-full text-center">
+                    <p className="leading-relaxed">
+                      Med Sphere has been a lifeline for me during my health
+                      journey. The information they provide is not just
+                      comprehensive but also presented in a way thats easy to
+                      grasp. Its like having a knowledgeable friend in the
+                      healthcare field whos always there to guide you. Thanks to
+                      Med Sphere, Ive been able to make better decisions about
+                      my health, and Im grateful for their dedication to
+                      empowering individuals like me.
+                    </p>
+                    <span className="inline-block h-1 w-10 rounded bg-indigo-500 mt-6 mb-4"></span>
+                    <h2 className="text-gray-900 font-medium title-font tracking-wider text-sm">
+                      Mark L.
+                    </h2>
+                    <p className="text-gray-500">Med Sphere Enthusiast</p>
+                  </div>
                 </div>
               </div>
             </div>

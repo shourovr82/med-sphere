@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import Image from "next/image";
@@ -7,7 +6,7 @@ import Logo from "@/assets/logo/logo.png";
 import Link from "next/link";
 import { INavbarType } from "@/types/NavbarType";
 import NavbarMenu from "./NavbarMenu";
-import { MenuOutlined, AppstoreOutlined } from "@ant-design/icons";
+import { MenuOutlined } from "@ant-design/icons";
 
 import {
   getUserInfo,
@@ -18,6 +17,7 @@ import { authKey } from "@/constants/common";
 import { useRouter } from "next/navigation";
 import AddToCard from "../cart/AddToCart";
 import { USER_ROLE } from "@/constants/user";
+import { Button } from "antd";
 
 const Navbar = () => {
   const NavbarData: INavbarType[] = [
@@ -143,16 +143,14 @@ const Navbar = () => {
                 </div>
               ) : (
                 <Link href={"/login"}>
-                  <div className="relative inline-flex  group">
-                    <div className="absolute transitiona-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-xl blur-lg group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200 animate-tilt"></div>
-                    <p
-                      title="Get quote now"
-                      className="relative inline-flex items-center justify-center px-4 py-2 text-lg  text-white transition-all duration-200 bg-gray-700 font-pj rounded-xl "
-                      role="button"
-                    >
-                      Login
-                    </p>
-                  </div>
+                  <Button
+                    type="primary"
+                    title="Get quote now"
+                    className="bg-gray-700 rounded-xl "
+                    role="button"
+                  >
+                    Login
+                  </Button>
                 </Link>
               )}
             </div>

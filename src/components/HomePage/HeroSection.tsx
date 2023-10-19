@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 const HeroSection = () => {
@@ -6,12 +7,12 @@ const HeroSection = () => {
       <div className="items-center lg:flex">
         <div className="w-full lg:w-1/2">
           <div className="lg:max-w-lg">
-            <h1 className="text-3xl font-semibold text-gray-800 lg:text-4xl">
+            <h1 className="text-3xl font-semibold text-gray-800 lg:text-6xl">
               <span className="text-[#47177e]"> Welcome to Med Sphere</span>
             </h1>
-            <p>Your Gateway to Exceptional Medical Care</p>
+            <p className="mt-3">Your Gateway to Exceptional Medical Care</p>
 
-            <p className="mt-3 text-gray-600 dark:text-gray-400">
+            <p className="mt-5 text-gray-600  dark:text-gray-400">
               Your Health, Our Priority: Exceptional Medical Treatments at Med
               Sphere Your
               <span className="font-medium text-[#47177e]"> well-being</span> is
@@ -30,7 +31,9 @@ const HeroSection = () => {
         </div>
 
         <div className="flex items-center justify-center w-full mt-6 lg:mt-0 lg:w-1/2">
-          <img
+          <Image
+            width={200}
+            height={200}
             className="w-full h-full max-w-md"
             src="https://merakiui.com/images/components/Email-campaign-bro.svg"
             alt="email illustration vector art"

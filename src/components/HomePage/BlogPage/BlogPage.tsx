@@ -13,9 +13,9 @@ const BlogPage = () => {
   const { data } = useGetBlogsQuery(query);
 
   return (
-    <div className="mb-20">
+    <div className="mb-20 max-md:px-3">
       {/* blog news */}
-      <div className="w-full flex justify-between items-center mb-[100px]">
+      <div className="w-full md:flex justify-between items-center mb-[100px]">
         <div>
           <p className="text-primary md:text-[25px] text-[16px] font-semibold">
             BLOG NEWS
@@ -29,8 +29,8 @@ const BlogPage = () => {
         ))}
       </div>{" "}
       <div className="mt-10 flex justify-end">
-        <Link href="/blogs" className="w-[15%]">
-          <Button className="w-full" size="large" type="primary">
+        <Link href="/blogs" className="lg:w-[15%]">
+          <Button className="lg:w-full" size="large" type="primary">
             View All Blogs
           </Button>
         </Link>

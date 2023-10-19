@@ -16,8 +16,7 @@ import { ExclamationCircleFilled } from "@ant-design/icons";
 import { IServiceTypes } from "@/types/Service";
 
 import { useAppDispatch } from "@/redux/hooks";
-import { useCreateRatingMutation } from "@/redux/features/ratings/ratingApi";
-import { getUserInfo, isLoggedIn } from "@/services/auth.service";
+import { isLoggedIn } from "@/services/auth.service";
 import { useGetSingleServiceQuery } from "@/redux/features/services/serviceApi";
 import { addToCart } from "@/redux/features/slice/cart/cartSlice";
 import UMBreadCrumb from "@/components/forms/ui/UMBreadCrumb";
@@ -25,6 +24,7 @@ import FormRating from "@/components/forms/Forms/FormRating";
 import Form from "@/components/forms/Forms/Form";
 import FormTextArea from "@/components/forms/Forms/FormTextArea";
 import Image from "next/image";
+import { useCreateReviewMutation } from "@/redux/features/ratings/ratingApi";
 
 const faqs = [
   {
@@ -74,8 +74,8 @@ function classNames(...classes: any) {
 }
 
 const ServiceDetails = ({ params }: any) => {
-  const [createRating, { isLoading: reviewLoading }] =
-    useCreateRatingMutation();
+  const [createReview, { isLoading: reviewLoading }] =
+    useCreateReviewMutation();
   const dispatch = useAppDispatch();
   const userLoggedIn = isLoggedIn();
 
@@ -109,7 +109,7 @@ const ServiceDetails = ({ params }: any) => {
           serviceId,
         };
 
-        const res: any = await createRating(updateData);
+        const res: any = await createReview(updateData);
 
         if (res?.data) {
           message.success("Review Added Successfully");

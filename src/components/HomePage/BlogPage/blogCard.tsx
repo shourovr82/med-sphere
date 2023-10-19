@@ -40,6 +40,8 @@ const BlogCard = ({ blog }: Props) => {
             <div className="flex items-center">
               {blog?.profile?.profileImage ? (
                 <Image
+                  width={100}
+                  height={100}
                   className="object-cover h-10 rounded-full"
                   src={blog?.profile?.profileImage}
                   alt="Avatar"

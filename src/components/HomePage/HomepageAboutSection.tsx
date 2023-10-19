@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable @next/next/no-img-element */
 import React from "react";
 import aboutImageOne from "../../../public/assists/about_doctor_female.jpg";
 import aboutImageTwo from "../../../public/assists/about_doctor-2.jpg";
@@ -5,32 +7,28 @@ import Image from "next/image";
 
 const HomepageAboutSection = () => {
   return (
-    <div className=" md:grid grid-cols-4 w-full  justify-between my-20 items-center gap-10">
-      <div className="col-span-2  ">
-        <Image
-          src={aboutImageTwo}
-          alt="Picture of the author"
-          className="w-full rounded-xl  shadow-xl  "
-        />
+    <div className="sm:flex items-center max-w-screen-xl">
+      <div className="sm:w-1/2 p-10">
+        <div className="image object-center text-center">
+          <img src="https://i.imgur.com/WbQnbas.png" />
+        </div>
       </div>
-
-      {/* about */}
-      <div className="col-span-2  font-inter my-[20px] md:my-0 flex flex-col h-[400px] justify-around ">
-        <p className="text-[#47177e] md:text-[20px] text-[16px] font-semibold">
-          ABOUT US
-        </p>
-        <p className=" md:text-[45px] text-[35px] md:w-[550px]">
-          We Collaborate for Better Healthcare
-        </p>
-        <p className="md:w-[500px] text-gray-[400px]  text-gray-500">
-          The benefits of MED-SPHERE are that it allows sellers to quickly
-          qualify or disqualify opportunities.
-        </p>
-
-        <div className="flex w-full gap-5 my-[10px]">
-          <button className="border px-5 py-2 bg-primary text-white rounded-full">
-            Learn More
-          </button>
+      <div className="sm:w-1/2 p-5">
+        <div className="text">
+          <span className="text-gray-500 border-b-2 border-indigo-600 uppercase">
+            About us
+          </span>
+          <h2 className="my-4 font-bold text-3xl  sm:text-4xl ">
+            About <span className="text-indigo-600">Our Company</span>
+          </h2>
+          <p className="text-gray-700">
+            Our mission at Med Sphere is clear: to make quality healthcare
+            information accessible to everyone. We are driven by a set of core
+            values, including transparency, accuracy, and empathy. These
+            principles guide us in providing reliable and up-to-date content
+            that can help individuals make informed decisions about their
+            health.
+          </p>
         </div>
       </div>
     </div>

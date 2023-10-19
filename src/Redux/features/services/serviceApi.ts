@@ -32,7 +32,7 @@ const categoryApi = baseApi.injectEndpoints({
       invalidatesTags: [tagTypes.service],
     }),
     getSingleService: builder.query({
-      query: ({ serviceId }) => ({
+      query: (serviceId) => ({
         url: `${SERVICE_API}/${serviceId}`,
         method: "GET",
       }),
