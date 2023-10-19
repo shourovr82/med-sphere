@@ -5,16 +5,17 @@ const SERVICE_API = "/services";
 const categoryApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getAllServices: builder.query({
-      query: () => ({
+      query: (arg: Record<string, any>) => ({
         url: `${SERVICE_API}`,
         method: "GET",
+        params: arg,
       }),
       providesTags: [tagTypes.service],
     }),
 
     // create Faq
     createService: builder.mutation({
-      query: (data) => ({
+      query: ({ data }) => ({
         url: `${SERVICE_API}/create-service`,
         method: "POST",
         data: data,
@@ -29,6 +30,13 @@ const categoryApi = baseApi.injectEndpoints({
         data: data,
       }),
       invalidatesTags: [tagTypes.service],
+    }),
+    getSingleService: builder.query({
+      query: ({ serviceId }) => ({
+        url: `${SERVICE_API}/${serviceId}`,
+        method: "GET",
+      }),
+      providesTags: [tagTypes.service],
     }),
 
     // delete Faq
@@ -47,4 +55,5 @@ export const {
   useGetAllServicesQuery,
   useDeleteServiceMutation,
   useUpdateServiceMutation,
+  useGetSingleServiceQuery,
 } = categoryApi;

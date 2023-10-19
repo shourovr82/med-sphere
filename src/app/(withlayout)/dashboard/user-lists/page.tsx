@@ -250,7 +250,7 @@ const UserList = () => {
         />
 
         <div className="mt-5">
-          <ActionBar title="Admin Lists">
+          <ActionBar title="User Lists">
             <Input
               type="text"
               size="large"

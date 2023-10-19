@@ -1,22 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import {
-  DeleteOutlined,
-  EditOutlined,
-  ReloadOutlined,
-} from "@ant-design/icons";
+import { EditOutlined, ReloadOutlined } from "@ant-design/icons";
 
 import { Button, Col, Input, Row, message } from "antd";
 import Link from "next/link";
 import { useState } from "react";
 import dayjs from "dayjs";
-
-import { Modal } from "antd";
-const { confirm } = Modal;
-import { ExclamationCircleFilled } from "@ant-design/icons";
 import {
-  useDeleteUserMutation,
   useGetAllUsersQuery,
   useUpdateUserInfoMutation,
 } from "@/redux/features/users/userApi";
@@ -56,7 +47,7 @@ const AdminLists = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
 
   // get data
-  const { data, isLoading } = useGetAllUsersQuery(searchTerm);
+  const { data, isLoading } = useGetAllUsersQuery(query);
 
   query["limit"] = size;
   query["page"] = page;
@@ -102,34 +93,6 @@ const AdminLists = () => {
   };
 
   // handle edit end
-
-  // delete
-  const [deleteUser] = useDeleteUserMutation();
-
-  const deleteHandler = async (id: string) => {
-    confirm({
-      title: "Do you Want to delete these items?",
-      icon: <ExclamationCircleFilled />,
-      content: "Please confirm your action!",
-      async onOk() {
-        try {
-          const res: any = await deleteUser(id);
-
-          if (res?.data?.success) {
-            message.success("User Deleted successfully");
-          }
-        } catch (err: any) {
-          console.error(err.data?.message);
-          message.error(err.data?.message);
-        }
-      },
-      onCancel() {
-        console.log("Cancel");
-      },
-    });
-  };
-
-  // delete end
 
   const columns = [
     {
@@ -217,9 +180,6 @@ const AdminLists = () => {
               type="primary"
             >
               <EditOutlined />
-            </Button>
-            <Button type="primary" danger>
-              <DeleteOutlined />
             </Button>
           </>
         );

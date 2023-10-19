@@ -1,60 +1,41 @@
-/* eslint-disable @next/next/no-img-element */
-import React from "react";
-
-import DoctorImage from "../../../public/assists/bruno-rodrigues-279xIHymPYY-unsplash-removebg-preview.png";
-import Image from "next/image";
+import Link from "next/link";
 
 const HeroSection = () => {
-  const HeroData = [
-    {
-      name: "25+",
-      description: "Years of Experience",
-    },
-    {
-      name: "140+",
-      description: "Specialist Doctors",
-    },
-  ];
-
   return (
-    <div className=" h-[720px] md:flex items-center justify-between ">
-      {/* welcome */}
-      <div className="font-inter my-[20px] md:my-0 flex flex-col h-[400px] justify-around">
-        <p className="text-[#9c01fe] md:text-[20px] text-[16px] font-semibold">
-          WELCOME TO MED-SPHERE
-        </p>
-        <p className=" md:text-[55px] text-[35px] md:w-[550px]">
-          We Are Here to Hear <br /> and Heal Your <br /> Health Problems
-        </p>
-        <p className="md:w-[500px] text-gray-[400px]  text-gray-500">
-          The benefits of MEDDPICC are that it allows sellers to quickly qualify
-          or disqualify opportunities before they get too far into the sales
-          process and gives sellers a framework to start from.
-        </p>
+    <div className=" px-6 py-16 min-h-screen mx-auto">
+      <div className="items-center lg:flex">
+        <div className="w-full lg:w-1/2">
+          <div className="lg:max-w-lg">
+            <h1 className="text-3xl font-semibold text-gray-800 lg:text-4xl">
+              <span className="text-[#47177e]"> Welcome to Med Sphere</span>
+            </h1>
+            <p>Your Gateway to Exceptional Medical Care</p>
 
-        <div className="flex w-full gap-5 my-[10px]">
-          <button className="px-[22px] py-[8px] bg-[#47177e] text-white rounded-md   hover:scale-105 ease-in-out duration-300 transition-all  ">
-            Get Start
-          </button>
-          <button className="px-[22px] py-[8px]  rounded-md border-2  hover:scale-105 ease-in-out duration-300 transition-all  ">
-            Contact Us
-          </button>
-        </div>
-      </div>
+            <p className="mt-3 text-gray-600 dark:text-gray-400">
+              Your Health, Our Priority: Exceptional Medical Treatments at Med
+              Sphere Your
+              <span className="font-medium text-[#47177e]"> well-being</span> is
+              at the forefront of our care philosophy. We tailor treatments to
+              your unique needs.
+            </p>
 
-      {/* image */}
-
-      {/* card */}
-      <div className="flex flex-col gap-5">
-        {HeroData.map((data, i) => (
-          <div
-            key={i}
-            className="card flex flex-col items-center justify-center bg-white p-4 md:w-[250px]  rounded-xl shadow-xl"
-          >
-            <p className="text-[40px] font-semibold">{data.name}</p>
-            <p className="text-[18px] text-gray-500">{data.description}</p>
+            <div className="flex justify-start mt-6">
+              <Link href="/services">
+                <button className=" px-5 py-2 text-sm tracking-wider text-white uppercase transition-colors duration-300 transform bg-[#47177e] rounded-lg  hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
+                  Get Services
+                </button>
+              </Link>
+            </div>
           </div>
-        ))}
+        </div>
+
+        <div className="flex items-center justify-center w-full mt-6 lg:mt-0 lg:w-1/2">
+          <img
+            className="w-full h-full max-w-md"
+            src="https://merakiui.com/images/components/Email-campaign-bro.svg"
+            alt="email illustration vector art"
+          />
+        </div>
       </div>
     </div>
   );

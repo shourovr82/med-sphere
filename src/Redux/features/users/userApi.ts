@@ -5,9 +5,10 @@ const USER_API = "/users";
 export const userApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     getAllUsers: build.query({
-      query: () => ({
+      query: (arg: Record<string, any>) => ({
         url: `${USER_API}`,
         method: "GET",
+        params: arg,
       }),
       providesTags: [tagTypes.user],
     }),
@@ -34,10 +35,10 @@ export const userApi = baseApi.injectEndpoints({
       providesTags: [tagTypes.user],
     }),
     updateMyProfile: build.mutation({
-      query: (data) => ({
+      query: (srv) => ({
         url: `${USER_API}/update-my-profile`,
         method: "PATCH",
-        data: data,
+        data: srv,
       }),
       invalidatesTags: [tagTypes.user],
     }),

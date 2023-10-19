@@ -62,7 +62,7 @@ const Navbar = () => {
 
   return (
     <>
-      <section className="border-b-2 borderColor  max-md:px-3">
+      <section className="border-b-2 sticky top-0 bg-bgColor shadow z-20 borderColor  max-md:px-3">
         <div className="py-2 max-w-7xl mx-auto  flex gap-3 items-center justify-between w-full ">
           {/* logo */}
           <Link href={"/"} className="md:w-full ">
